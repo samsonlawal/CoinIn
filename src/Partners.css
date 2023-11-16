@@ -1,0 +1,42 @@
+.partners {
+  width: 100%;
+  height: 25vh;
+  background: #141414;
+  text-align: center;
+  padding: 30px 50px;
+}
+
+.partner-header {
+  color: #4cca8d;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 60px;
+}
+
+.logos {
+  height: 90%;
+  width: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+  text-align: center;
+  margin: 0px 40px;
+}
+
+.binance {
+  width: 180px;
+}
+
+.coinbase {
+  width: 140px;
+  height: auto;
+  padding-top: 6px;
+}

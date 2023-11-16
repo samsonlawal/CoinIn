@@ -1,0 +1,142 @@
+.table-div {
+  width: 100%;
+  height: fit-content;
+  padding: 150px 20px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.top-shelf {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border: 0.5px solid gray;
+  border-collapse: collapse;
+}
+
+.top-shelf section {
+  width: 250px;
+  height: auto;
+  margin: 0px;
+  padding: 10px;
+  border: 0.5px solid gray;
+  border-collapse: collapse;
+}
+
+.market-text {
+  width: 100%;
+  padding: 80px 50px;
+}
+
+.market-text p {
+  font-size: 15px;
+  width: 70%;
+  padding: 10px 0px;
+}
+
+/* .top-shelf section:nth-child(2) {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+} */
+
+.table-shelf {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 50px;
+  background: #141414;
+}
+
+/* table,
+th,
+thead {
+  border: 1px solid gray;
+  border-collapse: collapse;
+} */
+
+table {
+  width: 100%;
+  border: 0px solid gray;
+  border-collapse: collapse;
+  padding: 0px 15px;
+}
+
+thead {
+  /* padding: 0px 15px; */
+}
+
+thead tr th {
+  padding: 30px 0px;
+  text-align: left;
+}
+
+tbody tr {
+  border-top: 1px solid gray;
+}
+
+tbody tr td {
+  text-align: left;
+  width: fit-content;
+  height: 60px;
+  /* padding: 0px 15px; */
+
+  /* border-top: 1px solid gray;
+  border-collapse: collapse; */
+}
+
+td p {
+  font-size: 15px;
+}
+
+.name {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.name img {
+  width: 25px;
+  padding-right: 5px;
+}
+
+.name span {
+  font-size: 12px;
+  color: gray;
+}
+
+.price {
+  width: 15%;
+}
+
+.cap {
+  width: 15%;
+}
+
+.vol {
+  width: fit-content;
+}
+
+.days {
+  width: 15%;
+}
+
+td img {
+  width: 110px;
+}
+
+.green {
+  color: #27ca4e;
+}
+
+.red {
+  color: #ff3a33;
+}

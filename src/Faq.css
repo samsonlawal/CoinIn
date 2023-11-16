@@ -1,0 +1,97 @@
+.faq {
+  height: fit-content;
+  padding: 150px 0px;
+  width: 100%;
+}
+
+.faq-header {
+  font-family: "Montserrat", sans-serif;
+  color: aliceblue;
+  text-align: center;
+  font-size: 45px;
+}
+
+.faq-acc {
+  height: fit-content;
+  width: 100%;
+  margin: 70px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.faq-acc-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 50%;
+  height: fit-content;
+  margin: 5px 2px;
+  background-color: #252336;
+  border-radius: 12px;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  font-size: 17px;
+  background-color: #161618;
+  color: #bcbcbc;
+  cursor: pointer;
+  padding: 18px;
+  height: 70px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
+.accordion.active {
+  /* background-color: #1e1e20; */
+}
+
+.accordion:hover {
+  background-color: #1e1e20;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  width: 100%;
+  padding: 0px 18px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: gray;
+}
+
+.panel.open {
+  max-height: auto;
+  margin: 30px 0;
+}
+
+.panel.close {
+  max-height: 0;
+}
+
+.fa-plus {
+  float: right;
+  font-size: 15px;
+}
+
+.fa-minus {
+  float: right;
+  font-size: 15px;
+}

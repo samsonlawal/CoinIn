@@ -1,0 +1,87 @@
+nav {
+  width: 100%;
+  height: fit-content;
+  background-color: #121212;
+  padding: 0px 50px;
+  margin: 0px;
+  position: fixed;
+  /* border-bottom: 1px solid #1e1e20; */
+}
+
+.altLogo {
+  width: 45px;
+  height: auto;
+  float: left;
+  margin: 15px 0px;
+}
+
+.logo {
+  float: left;
+  /* letter-spacing: 1px; */
+  margin: 25px 0px;
+  padding-right: 30px;
+  border-right: 1px solid #464362;
+  cursor: pointer;
+  color: #aca7cb;
+  font-size: 25px;
+  font-family: "Raleway", sans-serif;
+}
+
+.logo span {
+  color: #464362;
+}
+
+ul {
+  list-style: none;
+  color: #bcbcbc;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 16.5px;
+}
+
+ul.links {
+  margin: 27px 0px;
+  float: left;
+  padding-left: 30px;
+}
+
+ul.page-features {
+  float: right;
+}
+
+.lang {
+  background: #161618;
+  margin: 17px 5px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 15.5px;
+}
+
+/* .lang {
+  border: 1px solid #bcbcbc;
+} */
+
+.fa-twitter {
+  color: #1da1f2;
+}
+
+.nav-arrow {
+  padding: 0px 0px 0px 15px;
+  color: #444444;
+}
+
+li {
+  display: inline-block;
+  padding: 0px 10px;
+  cursor: pointer;
+}
+
+li:hover {
+  color: #464362;
+}
+
+/* font-family: 'DM Sans', sans-serif;
+font-family: 'Inter', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Raleway', sans-serif; */
