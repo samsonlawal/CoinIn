@@ -5,6 +5,7 @@ nav {
   padding: 0px 50px;
   margin: 0px;
   position: fixed;
+  z-index: 1;
   /* border-bottom: 1px solid #1e1e20; */
 }
 
@@ -37,6 +38,8 @@ ul {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 16.5px;
+  display: inline;
+  margin: 10px 10px;
 }
 
 ul.links {
@@ -47,14 +50,74 @@ ul.links {
 
 ul.page-features {
   float: right;
+  margin: 27px 10px;
+}
+
+ul a.gear {
+  margin: 0px 30px;
+  width: 180px;
+  position: relative;
+}
+.gear:hover {
+  color: white;
+}
+
+ul a {
+  color: #bcbcbc;
+  text-decoration: none;
+}
+
+ul .dropdown {
+  display: none;
+  width: inherit;
+  background-color: #464362;
+  position: absolute;
+  top: 45px;
+  /* right: -10px; */
+  padding: 10px 0px;
+  border-radius: 10px;
+}
+
+ul.display {
+  display: block;
 }
 
 .lang {
-  background: #161618;
-  margin: 17px 5px;
+  /* margin: 10px 5px; */
   padding: 10px 15px;
   border-radius: 8px;
-  font-size: 15.5px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.mode {
+  /* margin: 10px 5px; */
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login {
+  border: 1px solid #464364;
+  font-size: 14px;
+  padding: 5px 15px;
+  border-radius: 8px;
+}
+
+.signup {
+  /* border: 2px solid red; */
+  border: 1px solid #464364;
+  background-color: #464362;
+  border-radius: 8px;
+  font-size: 14px;
+  margin: 0px 10px;
+  padding: 5px 15px;
 }
 
 /* .lang {
@@ -76,7 +139,17 @@ li {
   cursor: pointer;
 }
 
-li:hover {
+.links li:hover {
+  color: white;
+}
+
+.login:hover {
+  background-color: #aca7cb;
+  color: #464362;
+}
+
+.signup:hover {
+  background-color: #aca7cb;
   color: #464362;
 }
 

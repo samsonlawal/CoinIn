@@ -42,7 +42,7 @@ function Header() {
         <div className="header-coin-2">
           <div className="header-coin-content">
             <div className="header-coin-content-cont">
-              <h4 className="coin-name">XXX</h4>
+              <h4 className="coin-name">ETH</h4>
               <img className="coin-chart" src={redline} alt="" />
             </div>
             <div className="header-coin-content-cont">
@@ -55,7 +55,7 @@ function Header() {
         <div className="header-coin-3">
           <div className="header-coin-content">
             <div className="header-coin-content-cont">
-              <h4 className="coin-name">YYY</h4>
+              <h4 className="coin-name">VET</h4>
               <img className="coin-chart" src={greenline} alt="" />
             </div>
             <div className="header-coin-content-cont">

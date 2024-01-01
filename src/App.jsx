@@ -5,6 +5,7 @@ import Header from "./Header";
 import Partners from "./Partners";
 import Faq from "./Faq";
 import Market from "./Market";
+import Chart from "./Chart";
 
 function App() {
   const faqData = [
@@ -55,7 +56,7 @@ function App() {
     <>
       <Navbar />
       <Header />
-      <Partners />
+      {/* <Partners /> */}
       <Market />
       <Faq items={faqData} />
     </>

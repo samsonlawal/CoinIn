@@ -1,12 +1,12 @@
 .table-div {
   width: 100%;
   height: fit-content;
-  padding: 150px 20px;
+  padding: 50px 20px;
   color: white;
   font-family: "Montserrat", sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
 }
 
@@ -16,23 +16,41 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  border: 0.5px solid gray;
+  /* border: 0.5px solid gray; */
   border-collapse: collapse;
 }
 
-.top-shelf section {
+/* section {
   width: 250px;
   height: auto;
-  margin: 0px;
+  margin: 0px 0px 50px 0px;
   padding: 10px;
   border: 0.5px solid gray;
   border-collapse: collapse;
+} */
+
+.linkers {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: row;
+  width: 100%;
+  margin: 0px;
+}
+
+.linkName {
+  padding: 50px 50px;
+  text-align: left;
 }
 
 .market-text {
   width: 100%;
   padding: 80px 50px;
 }
+
+/* .top-shelf section:hover {
+  cursor: pointer;
+} */
 
 .market-text p {
   font-size: 15px;
@@ -51,7 +69,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 50px;
+  padding: 0px 0px;
   background: #141414;
 }
 
@@ -74,33 +92,60 @@ thead {
 }
 
 thead tr th {
-  padding: 30px 0px;
   text-align: left;
 }
 
 tbody tr {
-  border-top: 1px solid gray;
+  /* background-color: red; */
+  /* border-top: 1px solid gray; */
+  /* padding: 0px 50px; */
+  /* height: 100px; */
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #161618;
 }
 
 tbody tr td {
   text-align: left;
-  width: fit-content;
-  height: 60px;
-  /* padding: 0px 15px; */
-
-  /* border-top: 1px solid gray;
-  border-collapse: collapse; */
+  height: 100px;
+  padding: 0px 50px;
 }
 
 td p {
   font-size: 15px;
 }
 
+.save {
+  width: fit-content;
+  padding: 30px 0px 30px 50px;
+}
+
+.saveButton {
+  width: 2%;
+  padding: 30px 30px 30px 50px;
+}
+
+.saveButton:hover {
+  color: white;
+}
+
+.order {
+  width: 5%;
+  padding: 30px 20px 30px 0px;
+}
+
+.orders {
+  padding: 30px 20px 30px 0px;
+}
+
 .name {
-  width: 95%;
+  width: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 30px 50px 30px 20px;
 }
 
 .name img {
@@ -114,23 +159,24 @@ td p {
 }
 
 .price {
-  width: 15%;
+  width: 8%;
+  padding: 30px 50px;
 }
 
 .cap {
   width: 15%;
+  padding: 30px 50px;
 }
 
 .vol {
-  width: fit-content;
+  width: 10%;
+  padding: 30px 50px;
 }
 
 .days {
-  width: 15%;
-}
-
-td img {
-  width: 110px;
+  width: 25%;
+  padding: 0px 50px;
+  max-height: 100px;
 }
 
 .green {
@@ -140,3 +186,25 @@ td img {
 .red {
   color: #ff3a33;
 }
+
+button {
+  padding: 30px 30px;
+  background: none;
+  color: #bcbcbc;
+  border: none;
+  margin: 0px;
+  font-size: 18px;
+}
+
+button.active {
+  background-color: #141414;
+  color: white;
+}
+/* 
+#charts {
+  height: 100%;
+}
+
+.wrapper {
+  height: 100%;
+} */
