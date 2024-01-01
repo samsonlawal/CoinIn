@@ -30,7 +30,7 @@ function Header() {
           <div className="header-coin-content">
             <div className="header-coin-content-cont">
               <h4 className="coin-name">BTC</h4>
-              <img className="coin-chart" src={btcline} alt="" />
+              <img className="coin-chart" alt="" />
             </div>
             <div className="header-coin-content-cont">
               <p className="coin-price">$32,650</p>
@@ -43,7 +43,7 @@ function Header() {
           <div className="header-coin-content">
             <div className="header-coin-content-cont">
               <h4 className="coin-name">ETH</h4>
-              <img className="coin-chart" src={redline} alt="" />
+              <img className="coin-chart" alt="" />
             </div>
             <div className="header-coin-content-cont">
               <p className="coin-price">$1,650</p>
@@ -56,7 +56,7 @@ function Header() {
           <div className="header-coin-content">
             <div className="header-coin-content-cont">
               <h4 className="coin-name">VET</h4>
-              <img className="coin-chart" src={greenline} alt="" />
+              <img className="coin-chart" alt="" />
             </div>
             <div className="header-coin-content-cont">
               <p className="coin-price">$653</p>

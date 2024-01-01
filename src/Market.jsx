@@ -1,9 +1,6 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, Suspense } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
-
-import Chart from "./Chart";
-// import ApexCharts from "apexcharts";
 
 function Market() {
   // State for Marketdata
@@ -19,6 +16,12 @@ function Market() {
     loser: false,
     currentData: "All Cryptocurrencies",
   });
+
+  const [isChartLoaded, setChartLoaded] = useState(false);
+
+  const handleChartLoad = () => {
+    setChartLoaded(true);
+  };
 
   const [options, setOption] = useState({
     chart: {
@@ -248,6 +251,26 @@ function Market() {
           ? "#27ca4e"
           : "#ff3a33";
 
+      const renderChart = () => {
+        return (
+          <Charts
+            height="60%"
+            id="charts"
+            options={{ ...options, colors: [lineColor] }}
+            series={[
+              {
+                name: "history",
+                data: item.sparkline_in_7d.price,
+              },
+            ]}
+            // colors={["#ff3a33"]}
+            type="line"
+            width="150"
+            onLoad={handleChartLoad}
+          />
+        );
+      };
+
       return (
         <tr key={item.symbol}>
           <td className="saveButton">
@@ -281,20 +304,8 @@ function Market() {
             <p>${item.market_cap.toLocaleString()}</p>
           </td>
           <td className="days">
-            <Charts
-              height="60%"
-              id="charts"
-              options={{ ...options, colors: [lineColor] }}
-              series={[
-                {
-                  name: "history",
-                  data: item.sparkline_in_7d.price,
-                },
-              ]}
-              // colors={["#ff3a33"]}
-              type="line"
-              width="150"
-            />
+            {!isChartLoaded && <p>Loading...</p>}
+            {/* {isChartLoaded ? renderChart() : <p>Loading...</p>} */}
           </td>
         </tr>
       );
@@ -365,3 +376,11 @@ function Market() {
 }
 
 export default Market;
+
+{
+  /* <div className="bouncing-loader">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>; */
+}
