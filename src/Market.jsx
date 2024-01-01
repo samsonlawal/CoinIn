@@ -37,7 +37,7 @@ function Market() {
         data: [],
       },
     ],
-    colors: ["#27ca4e"],
+    // colors: [],
 
     plotOptions: {
       series: {
@@ -235,17 +235,18 @@ function Market() {
   const marketData =
     market &&
     market.map((item) => {
-      const lineColor = () => {
-        if (item.sparkline_in_7d.price(-1)[0] > item.sparkline_in_7d.price[0]) {
-          console.log("#ff3a33");
-        } else {
-          console.log("#27ca4e");
-        }
-        lineColor();
-      };
-      // item.sparkline_in_7d.price.slice(-1)[0] > item.sparkline_in_7d.price[0]
-      //   ? "#27ca4e"
-      //   : "#ff3a33";
+      // const lineColor = () => {
+      //   if (item.sparkline_in_7d.price(-1)[0] > item.sparkline_in_7d.price[0]) {
+      //     console.log("#ff3a33");
+      //   } else {
+      //     console.log("#27ca4e");
+      //   }
+      //   // lineColor();
+      // };
+      const lineColor =
+        item.sparkline_in_7d.price.slice(-1)[0] > item.sparkline_in_7d.price[0]
+          ? "#27ca4e"
+          : "#ff3a33";
 
       return (
         <tr key={item.symbol}>
@@ -283,16 +284,16 @@ function Market() {
             <Charts
               height="60%"
               id="charts"
-              options={options}
+              options={{ ...options, colors: [lineColor] }}
               series={[
                 {
                   name: "history",
                   data: item.sparkline_in_7d.price,
                 },
               ]}
+              // colors={["#ff3a33"]}
               type="line"
               width="150"
-              // colors="#ff3a33"
             />
           </td>
         </tr>
