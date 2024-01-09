@@ -52,12 +52,18 @@ function App() {
     },
   ];
 
+  const [headerTop, setHeaderTop] = useState();
+
+  // Function to update the data
+  const updateData = (newData) => {
+    setHeaderTop(newData);
+  };
   return (
     <>
       <Navbar />
-      <Header />
+      <Header headerTop={headerTop} />
       {/* <Partners /> */}
-      <Market />
+      <Market updateData={updateData} />
       <Faq items={faqData} />
     </>
   );

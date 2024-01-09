@@ -140,12 +140,12 @@ div.header {
 
 .header-coin-1 .coin-name {
   height: 100%;
-  color: gold;
+  color: #f7931a;
 }
 
 .header-coin-2 .coin-name {
   height: 100%;
-  color: aqua;
+  color: #878faf;
 }
 
 .header-coin-2 .coin-percent {
@@ -155,7 +155,7 @@ div.header {
 
 .header-coin-3 .coin-name {
   height: 100%;
-  color: brown;
+  color: #009393;
 }
 
 .coin-chart {

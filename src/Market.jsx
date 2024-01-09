@@ -1,8 +1,9 @@
 import { React, useState, useEffect, Suspense } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
+import Header from "./Header";
 
-function Market() {
+function Market({ updateData }) {
   // State for Marketdata
   const [market, setMarket] = useState([]);
   const [top, setTop] = useState({
@@ -17,11 +18,14 @@ function Market() {
     currentData: "All Cryptocurrencies",
   });
 
-  const [isChartLoaded, setChartLoaded] = useState(false);
+  // STate for bookmarked coin
+  const [bookmarked, setBookmarked] = useState([]);
 
-  const handleChartLoad = () => {
-    setChartLoaded(true);
-  };
+  // const [isChartLoaded, setChartLoaded] = useState(true);
+
+  // const [headerTop, setHeaderTop] = useState();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [options, setOption] = useState({
     chart: {
@@ -31,7 +35,19 @@ function Market() {
       animations: {
         enabled: false,
       },
-      fill: {},
+    },
+
+    noData: {
+      text: "Loading...",
+      align: "center",
+      verticalAlign: "middle",
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: "#000000",
+        fontSize: "14px",
+        fontFamily: "Helvetica",
+      },
     },
 
     series: [
@@ -94,26 +110,36 @@ function Market() {
     },
   });
 
-  const [bookmark, setBookmark] = useState(false);
+  // const [bookmark, setBookmark] = useState(false);
 
-  // const BookmarkHandler = (item) => {
-  //   // setBookmark((prevBookmark) => !prevBookmark);
+  const BookmarkHandler = (itemId) => {
+    // setBookmark((prevBookmark) => !prevBookmark);
 
-  //   const index = market.findIndex(
-  //     (marketItem) => marketItem.symbol === item.symbol
-  //   );
+    // const index = market.findIndex(
+    //   (marketItem) => marketItem.symbol === item.symbol
+    // );
 
-  //   if (index !== -1) {
-  //     const updatedMarket = [...market];
-  //     updatedMarket[index] = {
-  //       ...updatedMarket[index],
-  //       bookmarked: !updatedMarket[index].bookmarked,
-  //     };
-  //     setMarket(updatedMarket);
-  //   }
+    // if (index !== -1) {
+    //   const updatedMarket = [...market];
+    //   updatedMarket[index] = {
+    //     ...updatedMarket[index],
+    //     bookmarked: !updatedMarket[index].bookmarked,
+    //   };
+    // setMarket(updatedMarket);
+    // const newItem = market[index];
+    // setBookmarked([...bookmarked, newItem]);
+    // console.log(item);
 
-  //   console.log(market.item.symbol);
-  // };
+    setMarket((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, bookmarked: !item.bookmarked } : item
+      )
+    );
+  };
+
+  useEffect(() => {
+    console.log(bookmarked);
+  }, [bookmarked]);
 
   // MARKET API endpoint, key and keywords
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
@@ -136,14 +162,22 @@ function Market() {
       // Parse the JSON response
       // return response.json();
       .then((data) => {
-        setMarket(data);
+        console.log(
+          setMarket(
+            data.map((item) => ({
+              ...item,
+              bookmarked: false,
+            }))
+          )
+        );
+        updateData(data.slice(0, 3));
+        // console.log(data.slice(0, 3));
       });
     // .catch((error) => {
     //   console.error("Error:", error);
     // });
-  }, []);
 
-  useEffect(() => {
+    // *************FETCH GAINERS AND LOSERS*************
     fetch(topGainers)
       .then((response) => response.json())
       // if (!response.ok) {
@@ -161,7 +195,6 @@ function Market() {
         );
 
         // Get top gainers and losers
-        console.log(sortedCoins);
         const topGainers = sortedCoins.slice(0, 10);
         const topLosers = sortedCoins.slice(-10).reverse();
 
@@ -170,20 +203,8 @@ function Market() {
           Gainers: topGainers,
           Losers: topLosers,
         });
-        console.log("Top Losers:", topLosers);
-
-        // console.log(data);
-
-        // setTop({
-        //   Gainers: data,
-        //   ...top,
-        // });
       });
   }, []);
-
-  function logData() {
-    // console.log(top.Gainers);
-  }
 
   function HandleGainer() {
     setMarket(top.Gainers);
@@ -194,6 +215,7 @@ function Market() {
       loser: false,
       currentData: "Top Gainers",
     });
+    setIsLoading((prevLoading) => !prevLoading);
   }
 
   function HandleLoser() {
@@ -204,6 +226,7 @@ function Market() {
       loser: true,
       currentData: "Top Losers",
     });
+    setIsLoading((prevLoading) => !prevLoading);
   }
 
   function HandleMarket() {
@@ -226,57 +249,56 @@ function Market() {
           currentData: "All Cryptocurrencies",
         });
       });
+
+    setIsLoading((prevLoading) => !prevLoading);
   }
 
   const trueStyle = "active";
 
   const falseStyle = "";
 
-  // const currentPrice = item.sparkline_in_7d.price.length - 1;
-  // const lastPrice = item.sparkline_in_7d.price[0];
+  useEffect(() => {
+    // Simulate a 10-second delay
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false); // Hide the loading text after 10 seconds
+    }, 10000);
+
+    // Cleanup the timeout when the component unmounts or if it gets updated
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   const marketData =
     market &&
     market.map((item) => {
-      // const lineColor = () => {
-      //   if (item.sparkline_in_7d.price(-1)[0] > item.sparkline_in_7d.price[0]) {
-      //     console.log("#ff3a33");
-      //   } else {
-      //     console.log("#27ca4e");
-      //   }
-      //   // lineColor();
-      // };
       const lineColor =
         item.sparkline_in_7d.price.slice(-1)[0] > item.sparkline_in_7d.price[0]
           ? "#27ca4e"
           : "#ff3a33";
 
-      const renderChart = () => {
-        return (
-          <Charts
-            height="60%"
-            id="charts"
-            options={{ ...options, colors: [lineColor] }}
-            series={[
-              {
-                name: "history",
-                data: item.sparkline_in_7d.price,
-              },
-            ]}
-            // colors={["#ff3a33"]}
-            type="line"
-            width="150"
-            onLoad={handleChartLoad}
-          />
-        );
-      };
+      const renderChart = (
+        <Charts
+          height="60%"
+          id="charts"
+          options={{ ...options, colors: [lineColor] }}
+          series={[
+            {
+              name: "history",
+              data: item.sparkline_in_7d.price,
+            },
+          ]}
+          type="line"
+          width="150"
+        />
+      );
 
       return (
-        <tr key={item.symbol}>
+        <tr key={item.symbol} id={item.id}>
           <td className="saveButton">
             <i
-              className={`fa-star ${bookmark ? "fa-solid" : "fa-regular"}`}
-              onClick={(item) => BookmarkHandler(item)}
+              className={`fa-star ${
+                item.bookmarked ? "fa-solid" : "fa-regular"
+              }`}
+              onClick={() => BookmarkHandler(item.id)}
             ></i>
           </td>
           <td className="orders">
@@ -304,8 +326,10 @@ function Market() {
             <p>${item.market_cap.toLocaleString()}</p>
           </td>
           <td className="days">
-            {!isChartLoaded && <p>Loading...</p>}
+            {/* {!isChartLoaded && <p>Loading...</p>} */}
             {/* {isChartLoaded ? renderChart() : <p>Loading...</p>} */}
+            {isLoading ? <p>Loading...</p> : renderChart}
+            {/* {renderChart} */}
           </td>
         </tr>
       );

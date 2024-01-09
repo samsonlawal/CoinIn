@@ -1,14 +1,12 @@
 import React from "react";
 import "./Header.css";
-import altLogo from "./img/altcoinn.svg";
-import chart from "./img/chart.svg";
-import btcline from "./img/btcline.svg";
-import redline from "./img/redline.svg";
-import greenline from "./img/greenline.svg";
-
 import "./Faq.css";
+import { useState } from "react";
 
-function Header() {
+function Header({ headerTop }) {
+  const [topData, setTopData] = useState(headerTop);
+  console.log(topData);
+
   return (
     <div className="header">
       {/* <h1 className="heading">Latest & accurate crypto data</h1> */}
@@ -33,8 +31,16 @@ function Header() {
               <img className="coin-chart" alt="" />
             </div>
             <div className="header-coin-content-cont">
-              <p className="coin-price">$32,650</p>
-              <p className="coin-percent">+23%</p>
+              <p className="coin-price">
+                {headerTop
+                  ? `${headerTop[0].price_change_percentage_24h.toFixed(1)}%`
+                  : "..."}
+              </p>
+              <p className="coin-percent">
+                {headerTop
+                  ? headerTop[0].current_price.toLocaleString()
+                  : "..."}
+              </p>
             </div>
           </div>
         </div>
