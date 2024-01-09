@@ -5,6 +5,7 @@ import Header from "./Header";
 import Partners from "./Partners";
 import Faq from "./Faq";
 import Market from "./Market";
+import supabase from "./config/supabaseClinet";
 import Chart from "./Chart";
 
 function App() {

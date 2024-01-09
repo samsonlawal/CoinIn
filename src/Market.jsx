@@ -2,8 +2,10 @@ import { React, useState, useEffect, Suspense } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
 import Header from "./Header";
+import supabase from "./config/supabaseClinet";
 
 function Market({ updateData }) {
+  console.log(supabase);
   // State for Marketdata
   const [market, setMarket] = useState([]);
   const [top, setTop] = useState({
