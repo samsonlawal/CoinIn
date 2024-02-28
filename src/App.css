@@ -17,3 +17,10 @@ body {
   /* background-color: #1e1e20; */
   background: #121212;
 }
+
+.cont {
+  background-image: url("./img/waall.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+}

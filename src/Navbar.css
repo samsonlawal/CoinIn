@@ -1,11 +1,15 @@
+root-layout {
+  width: 100%;
+}
+
 nav {
   width: 100%;
-  height: fit-content;
-  background-color: #121212;
+  height: 90px;
+  /* background-color: #121212; */
   padding: 0px 50px;
   margin: 0px;
-  position: fixed;
-  z-index: 1;
+  /* position: fixed; */
+  /* z-index: 1; */
   /* border-bottom: 1px solid #1e1e20; */
 }
 
@@ -37,7 +41,7 @@ ul {
   color: #bcbcbc;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
-  font-size: 16.5px;
+  font-size: 17.5px;
   display: inline;
   margin: 10px 10px;
 }
@@ -103,21 +107,22 @@ ul.display {
   align-items: center;
 }
 
-.login {
+.page-features .login {
   border: 1px solid #464364;
-  font-size: 14px;
-  padding: 5px 15px;
+  font-size: 15px;
+  padding: 5px 20px;
+  margin: 0px 10px;
   border-radius: 8px;
 }
 
-.signup {
+.page-features .signup {
   /* border: 2px solid red; */
   border: 1px solid #464364;
   background-color: #464362;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 15px;
   margin: 0px 10px;
-  padding: 5px 15px;
+  padding: 5px 20px;
 }
 
 /* .lang {

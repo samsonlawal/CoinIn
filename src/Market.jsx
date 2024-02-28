@@ -2,38 +2,68 @@ import { React, useState, useEffect, Suspense } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
 import Header from "./Header";
-import supabase from "./config/supabaseClinet";
+import Navbar from "./Navbar";
+import supabase from "./config/supabaseClient";
 
-function Market({ updateData }) {
-  console.log(supabase);
+function Market({ updateData, getBookmarkHandler }) {
+  // State that gets the datas from the database
+  const [bookmarks, setBookmarks] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
+
+  // State for bookmarked coin and sending data to the database
+  const [bookmarked, setBookmarked] = useState("");
+
   // State for Marketdata
   const [market, setMarket] = useState([]);
+
+  // Top gainer and losers state
   const [top, setTop] = useState({
     Coins: [],
     Gainers: [],
     Losers: [],
+    // Trending: [],
   });
+
+  // State for switching market data
   const [link, setLink] = useState({
     coin: true,
     gainer: false,
     loser: false,
+    // trending: false,
     currentData: "All Cryptocurrencies",
   });
 
-  // STate for bookmarked coin
-  const [bookmarked, setBookmarked] = useState([]);
+  // Get the bookmarks from the database
+  useEffect(() => {
+    const fetchId = async () => {
+      const { data, error } = await supabase.from("bookmarks").select();
 
-  // const [isChartLoaded, setChartLoaded] = useState(true);
+      if (error) {
+        setFetchError("Couldn't fetch");
+        setBookmarks(null);
+        console.log(error);
+      }
 
+      if (data) {
+        setBookmarks(data);
+        getBookmarkHandler(data);
+        console.log(data);
+        setFetchError(null);
+      }
+    };
+
+    fetchId();
+  }, [bookmarked]);
+
+  // Update graphs in header
   // const [headerTop, setHeaderTop] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
 
   const [options, setOption] = useState({
     chart: {
-      // color: "#27ca4e",
       type: "line",
-      toolbar: false, // Hide toolba
+      toolbar: false, // Hide toolbar
       animations: {
         enabled: false,
       },
@@ -112,36 +142,69 @@ function Market({ updateData }) {
     },
   });
 
-  // const [bookmark, setBookmark] = useState(false);
-
-  const BookmarkHandler = (itemId) => {
-    // setBookmark((prevBookmark) => !prevBookmark);
-
-    // const index = market.findIndex(
-    //   (marketItem) => marketItem.symbol === item.symbol
-    // );
-
-    // if (index !== -1) {
-    //   const updatedMarket = [...market];
-    //   updatedMarket[index] = {
-    //     ...updatedMarket[index],
-    //     bookmarked: !updatedMarket[index].bookmarked,
-    //   };
-    // setMarket(updatedMarket);
-    // const newItem = market[index];
-    // setBookmarked([...bookmarked, newItem]);
-    // console.log(item);
-
+  // Bookmark function
+  const BookmarkHandler = async (itemId) => {
+    // Change bookmark value for clicked coin
     setMarket((prevItems) =>
       prevItems.map((item) =>
-        item.id === itemId ? { ...item, bookmarked: !item.bookmarked } : item
+        item.id === itemId
+          ? { ...item, bookmarked: !item.bookmarked }
+          : { ...item }
       )
     );
+
+    setBookmarked({ ...bookmarked, itemId });
+
+    const isCoinAlreadyBookmarked =
+      bookmarks && bookmarks.some((bookmark) => bookmark.coinId === itemId);
+
+    if (!isCoinAlreadyBookmarked) {
+      // Adding coin to database
+      try {
+        const { data, error, status } = await supabase
+          .from("bookmarks")
+          .insert([{ coinId: itemId }]);
+        // .select();
+
+        console.log("Supabase Response:", { data, error, status });
+
+        if (data) {
+          console.log("Data inserted successfully:", data);
+          fetchId();
+        }
+
+        if (error) {
+          console.log("Supabase Response:", { data, error, status });
+        }
+      } catch (error) {
+        console.log("Error inserting data:", error.message);
+      }
+    }
+
+    // If Item is already bookmarked
+    else {
+      try {
+        const { data, error } = await supabase
+          .from("bookmarks")
+          .delete()
+          .eq("coinId", itemId);
+
+        if (data) {
+          console.log("Bookmark removed successfully:", data);
+          console.log(market);
+        }
+
+        // if (error) {
+        //   console.log("Error removing bookmark:", error);
+        // }
+      } catch (error) {
+        console.log("Error removing bookmark:", error);
+      }
+    }
   };
 
-  useEffect(() => {
-    console.log(bookmarked);
-  }, [bookmarked]);
+  // console.log(bookmarks);
+  // console.log(market);
 
   // MARKET API endpoint, key and keywords
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
@@ -149,44 +212,31 @@ function Market({ updateData }) {
   const pageNo = 1;
   const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=10&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
-  // Top Gainers API
-  const gainer = "percent_change_percentage_24h";
+  // Top Gainers API  const gainer = "percent_change_percentage_24h";
   const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=100&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   useEffect(() => {
-    // Fetchig Process
+    // Fetchig Process all market data
 
     fetch(apiURL)
       .then((response) => response.json())
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
-      // Parse the JSON response
-      // return response.json();
+
       .then((data) => {
-        console.log(
-          setMarket(
-            data.map((item) => ({
-              ...item,
-              bookmarked: false,
-            }))
-          )
+        setMarket(
+          data.map((item) => ({
+            ...item,
+            bookmarked: false,
+          }))
         );
-        updateData(data.slice(0, 3));
+
+        // Data for the top 3 coins in the header
+        // updateData(data.slice(0, 3));
         // console.log(data.slice(0, 3));
       });
-    // .catch((error) => {
-    //   console.error("Error:", error);
-    // });
 
     // *************FETCH GAINERS AND LOSERS*************
     fetch(topGainers)
       .then((response) => response.json())
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
-      // Parse the JSON response
-      // return response.json();
       .then((data) => {
         // Handle the data returned by the API
 
@@ -205,6 +255,7 @@ function Market({ updateData }) {
           Gainers: topGainers,
           Losers: topLosers,
         });
+        updateData(data.slice(0, 50));
       });
   }, []);
 
@@ -231,19 +282,23 @@ function Market({ updateData }) {
     setIsLoading((prevLoading) => !prevLoading);
   }
 
+  function HandleTrending() {
+    setMarket(top.Losers);
+    setLink({
+      coin: false,
+      gainer: false,
+      loser: false,
+      currentData: "Trending",
+    });
+    setIsLoading((prevLoading) => !prevLoading);
+  }
+
   function HandleMarket() {
     fetch(apiURL)
       .then((response) => response.json())
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
-      // Parse the JSON response
-      // return response.json();
+
       .then((data) => {
         setMarket(data);
-        // setTop({
-        //   Coins: data,
-        // });
         setLink({
           coin: true,
           gainer: false,
@@ -259,6 +314,7 @@ function Market({ updateData }) {
 
   const falseStyle = "";
 
+  // Timer delay for the line graph
   useEffect(() => {
     // Simulate a 10-second delay
     const timeoutId = setTimeout(() => {
@@ -299,7 +355,16 @@ function Market({ updateData }) {
             <i
               className={`fa-star ${
                 item.bookmarked ? "fa-solid" : "fa-regular"
-              }`}
+              } ${
+                bookmarks && bookmarks.some((obj) => obj.coinId === item.id)
+                  ? "fa-solid"
+                  : "fa-regular"
+              }  `}
+              // className={`fa-star ${
+              //   bookmarks && bookmarks.some((obj) => obj.coinId === item.id)
+              //     ? "fa-solid"
+              //     : "fa-regular"
+              // }`}
               onClick={() => BookmarkHandler(item.id)}
             ></i>
           </td>
@@ -328,17 +393,11 @@ function Market({ updateData }) {
             <p>${item.market_cap.toLocaleString()}</p>
           </td>
           <td className="days">
-            {/* {!isChartLoaded && <p>Loading...</p>} */}
-            {/* {isChartLoaded ? renderChart() : <p>Loading...</p>} */}
             {isLoading ? <p>Loading...</p> : renderChart}
-            {/* {renderChart} */}
           </td>
         </tr>
       );
     });
-
-  // const percentageChange =
-  //   ((currentPrice - price7DaysAgo) / price7DaysAgo) * 100;
 
   // ********************JSX CODE*************************************
 
@@ -378,6 +437,13 @@ function Market({ updateData }) {
           >
             Losers
           </button>
+          {/* <button
+            onClick={HandleTrending}
+            className={link.trending ? trueStyle : falseStyle}
+            // className={link.coin ? "active" : ""}
+          >
+            Trending
+          </button> */}
         </div>
       </div>
 
@@ -396,17 +462,22 @@ function Market({ updateData }) {
           </thead>
           <tbody>{marketData}</tbody>
         </table>
+
+        <div>
+          {fetchError && <p>{fetchError}</p>}
+          {bookmarks && (
+            <div>
+              {bookmarks.map((bookmark) => {
+                <p>{bookmark.coinId}</p>;
+              })}
+            </div>
+          )}
+        </div>
       </div>
+
+      <div></div>
     </div>
   );
 }
 
 export default Market;
-
-{
-  /* <div className="bouncing-loader">
-  <div></div>
-  <div></div>
-  <div></div>
-</div>; */
-}

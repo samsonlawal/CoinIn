@@ -1,0 +1,225 @@
+.form {
+  width: 100%;
+  height: 85vh;
+  /* padding: 10px 0px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  font-family: "Montserrat", sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+.main section {
+  width: 450px;
+  height: 96%;
+  text-align: center;
+  background-color: #1e1e20;
+  border-radius: 20px;
+}
+
+.main h1 {
+  font-size: 35px;
+  font-weight: 900;
+  padding-bottom: 30px;
+  color: white;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 0px;
+  font-size: 20px;
+  /* margin-bottom: 20px; */
+  width: 100%;
+}
+
+#registrationForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 0px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* 464362 */
+/* 161618 */
+
+#loginContent {
+  padding: 50px;
+  height: 100%;
+}
+
+#signUpContent {
+  padding: 40px 50px 10px 50px;
+  height: 100%;
+}
+
+.welcome-p {
+  color: black;
+  font-size: 17px;
+}
+
+.main input {
+  height: 35px;
+  width: 100%;
+  font-size: 14px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid #464362;
+  color: white;
+  z-index: 1000;
+  /* margin-bottom: 10px; */
+  font-family: "Montserrat", sans-serif;
+}
+
+::-webkit-input-placeholder {
+  color: #adadad;
+}
+
+.main button {
+  height: 45px;
+  background-color: #464362;
+  color: white;
+  border: none;
+  /* padding: 13px 0px; */
+  margin-top: 30px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  /* border-radius: 20px; */
+}
+
+.main .button {
+  background-color: #464362;
+  color: white;
+  border: none;
+  height: 45px;
+  /* padding: 10px 0px; */
+  margin-top: 30px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  /* border-radius: 20px; */
+}
+
+.main button:hover {
+  background-color: #3c3957;
+}
+
+.main .button:hover {
+  background-color: #3c3957;
+}
+
+.details p {
+  font-size: 13px;
+  color: black;
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+}
+
+.main p {
+  font-size: 13px;
+  color: #adadad;
+  padding: 10px 0px 0px 0px;
+  margin: 0px;
+  font-weight: 500;
+}
+
+/* .details p span:hover {
+  color: #aca7cb;
+  cursor: pointer;
+} */
+
+/* .main p span .logIn {
+  color: white;
+} */
+
+/* .main p:hover {
+  color: #aca7cb;
+  cursor: pointer;
+} */
+
+.main .option {
+  width: 60%;
+  text-align: center;
+  border-bottom: 1px solid #adadad;
+  line-height: 0.1em;
+  margin: 30px auto;
+}
+
+.main .option-span {
+  background: #fff;
+  padding: 0 10px;
+  text-align: center;
+  color: #adadad;
+}
+
+.option-span:hover {
+  color: #adadad;
+  cursor: unset;
+}
+
+.icon {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.icon i {
+  font-size: 20px;
+  margin: 0px 16px;
+  /* background-color: rgb(236, 222, 202); */
+  /* padding: 10px; */
+  /* border-radius: 30px; */
+}
+
+.main i {
+  cursor: pointer;
+}
+
+.icon i:nth-child(1) {
+  font-size: 18px;
+}
+
+.icon i:nth-child(4) {
+  font-size: 18px;
+}
+
+.main img {
+  width: 230px;
+}
+
+#registrationForm .error {
+  font-size: 14px;
+  color: red;
+}
+
+#registrationForm .success {
+  font-size: 14px;
+  color: green;
+}
+
+span .navlink {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+span .navlink:hover {
+  color: #aca7cb;
+  cursor: pointer;
+}

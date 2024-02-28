@@ -1,11 +1,11 @@
 import React from "react";
 import "./Header.css";
 import "./Faq.css";
-import { useState } from "react";
+import phone from "./img/phone.png";
+// import wall from "./img/wall.png"
 
 function Header({ headerTop }) {
-  const [topData, setTopData] = useState(headerTop);
-  console.log(topData);
+  // console.log(topData);
 
   return (
     <div className="header">
@@ -22,54 +22,10 @@ function Header({ headerTop }) {
         </p>
       </div>
 
+      {/* {headerTop && } */}
+
       <div className="quick-market">
-        {/* <img src={altLogo} alt="" /> */}
-        <div className="header-coin-1">
-          <div className="header-coin-content">
-            <div className="header-coin-content-cont">
-              <h4 className="coin-name">BTC</h4>
-              <img className="coin-chart" alt="" />
-            </div>
-            <div className="header-coin-content-cont">
-              <p className="coin-price">
-                {headerTop
-                  ? `${headerTop[0].price_change_percentage_24h.toFixed(1)}%`
-                  : "..."}
-              </p>
-              <p className="coin-percent">
-                {headerTop
-                  ? headerTop[0].current_price.toLocaleString()
-                  : "..."}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="header-coin-2">
-          <div className="header-coin-content">
-            <div className="header-coin-content-cont">
-              <h4 className="coin-name">ETH</h4>
-              <img className="coin-chart" alt="" />
-            </div>
-            <div className="header-coin-content-cont">
-              <p className="coin-price">$1,650</p>
-              <p className="coin-percent">-50%</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="header-coin-3">
-          <div className="header-coin-content">
-            <div className="header-coin-content-cont">
-              <h4 className="coin-name">VET</h4>
-              <img className="coin-chart" alt="" />
-            </div>
-            <div className="header-coin-content-cont">
-              <p className="coin-price">$653</p>
-              <p className="coin-percent">+5%</p>
-            </div>
-          </div>
-        </div>
+        <img src={phone} alt="" />
       </div>
     </div>
   );
