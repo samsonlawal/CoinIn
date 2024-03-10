@@ -11,7 +11,7 @@ function TopCoins({ headerTop }) {
         {headerTop &&
           headerTop.map((item) => {
             return (
-              <div className="header-coin-1">
+              <div className="header-coin-1" key={item.symbol}>
                 <div className="header-coin-content">
                   <div className="header-coin-content-cont">
                     <img src={item.image} alt="" />

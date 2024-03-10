@@ -5,7 +5,7 @@ import { Link, Outlet } from "react-router-dom";
 // import "../Navbar.css";
 import altLogo from "../img/altcoinn.svg";
 
-function Layout() {
+function Layout({ token, setToken }) {
   const [modal, setModal] = useState(false);
 
   // function modalHandler() {
@@ -17,7 +17,7 @@ function Layout() {
 
   return (
     <>
-      <Navbar />
+      <Navbar setToken={setToken} token={token} />
 
       <main>
         <Outlet />

@@ -5,7 +5,12 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import supabase from "./config/supabaseClient";
 
-function Market({ updateData, getBookmarkHandler }) {
+// Toasts
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.min.css";
+
+function Market({ getBookmarkHandler, token }) {
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
   const [fetchError, setFetchError] = useState(null);
@@ -35,8 +40,14 @@ function Market({ updateData, getBookmarkHandler }) {
 
   // Get the bookmarks from the database
   useEffect(() => {
+    const userId = token && token.user.id; // Get user ID
+    console.log(userId);
+
     const fetchId = async () => {
-      const { data, error } = await supabase.from("bookmarks").select();
+      const { data, error } = await supabase
+        .from("bookmarks")
+        .select("*")
+        .eq("user_id", userId);
 
       if (error) {
         setFetchError("Couldn't fetch");
@@ -47,7 +58,7 @@ function Market({ updateData, getBookmarkHandler }) {
       if (data) {
         setBookmarks(data);
         getBookmarkHandler(data);
-        console.log(data);
+        // console.log(data);
         setFetchError(null);
       }
     };
@@ -56,94 +67,99 @@ function Market({ updateData, getBookmarkHandler }) {
   }, [bookmarked]);
 
   // Update graphs in header
-  // const [headerTop, setHeaderTop] = useState();
+  const [headerTop, setHeaderTop] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [options, setOption] = useState({
-    chart: {
-      type: "line",
-      toolbar: false, // Hide toolbar
-      animations: {
-        enabled: false,
-      },
-    },
+  // const [options, setOption] = useState({
+  //   chart: {
+  //     type: "line",
+  //     toolbar: false, // Hide toolbar
+  //     animations: {
+  //       enabled: false,
+  //     },
+  //   },
 
-    noData: {
-      text: "Loading...",
-      align: "center",
-      verticalAlign: "middle",
-      offsetX: 0,
-      offsetY: 0,
-      style: {
-        color: "#000000",
-        fontSize: "14px",
-        fontFamily: "Helvetica",
-      },
-    },
+  //   noData: {
+  //     text: "Loading...",
+  //     align: "center",
+  //     verticalAlign: "middle",
+  //     offsetX: 0,
+  //     offsetY: 0,
+  //     style: {
+  //       color: "#000000",
+  //       fontSize: "14px",
+  //       fontFamily: "Helvetica",
+  //     },
+  //   },
 
-    series: [
-      {
-        name: "Prices",
-        data: [],
-      },
-    ],
-    // colors: [],
+  //   series: [
+  //     {
+  //       name: "Prices",
+  //       data: [],
+  //     },
+  //   ],
+  //   // colors: [],
 
-    plotOptions: {
-      series: {
-        marker: {
-          enabled: false, // Disable markers (points) on the line
-        },
+  //   plotOptions: {
+  //     series: {
+  //       marker: {
+  //         enabled: false, // Disable markers (points) on the line
+  //       },
 
-        hover: {
-          size: 0, // Set the size of the hover effect to 0 to disable it
-        },
-      },
-    },
-    stroke: {
-      width: 1, // Set the width of the line here
-    },
-    xaxis: {
-      labels: {
-        show: false, // Hide X-axis labels
-      },
-      axisBorder: {
-        show: false, // Hide X-axis border
-      },
-      axisTicks: {
-        show: false, // Hide X-axis ticks
-      },
-    },
-    fill: {
-      type: ["solid"],
-    },
+  //       hover: {
+  //         size: 0, // Set the size of the hover effect to 0 to disable it
+  //       },
+  //     },
+  //   },
+  //   stroke: {
+  //     width: 1, // Set the width of the line here
+  //   },
+  //   xaxis: {
+  //     labels: {
+  //       show: false, // Hide X-axis labels
+  //     },
+  //     axisBorder: {
+  //       show: false, // Hide X-axis border
+  //     },
+  //     axisTicks: {
+  //       show: false, // Hide X-axis ticks
+  //     },
+  //   },
+  //   fill: {
+  //     type: ["solid"],
+  //   },
 
-    yaxis: {
-      show: false,
-      labels: {
-        show: false, // Hide Y-axis labels
-      },
-      axisBorder: {
-        show: false, // Hide Y-axis border
-      },
-      axisTicks: {
-        show: false, // Hide Y-axis ticks
-      },
-      tooltip: {
-        enabled: false,
-      },
-    },
-    grid: {
-      show: false, // Hide grid lines
-    },
-    tooltip: {
-      enabled: false,
-    },
-  });
+  //   yaxis: {
+  //     show: false,
+  //     labels: {
+  //       show: false, // Hide Y-axis labels
+  //     },
+  //     axisBorder: {
+  //       show: false, // Hide Y-axis border
+  //     },
+  //     axisTicks: {
+  //       show: false, // Hide Y-axis ticks
+  //     },
+  //     tooltip: {
+  //       enabled: false,
+  //     },
+  //   },
+  //   grid: {
+  //     show: false, // Hide grid lines
+  //   },
+  //   tooltip: {
+  //     enabled: false,
+  //   },
+  // });
 
   // Bookmark function
   const BookmarkHandler = async (itemId) => {
+    // const { user } = supabase.auth.getUser(); // Get current user
+
+    const userId = token && token.user.id; // Get user ID
+    console.log(userId);
+
     // Change bookmark value for clicked coin
     setMarket((prevItems) =>
       prevItems.map((item) =>
@@ -155,51 +171,60 @@ function Market({ updateData, getBookmarkHandler }) {
 
     setBookmarked({ ...bookmarked, itemId });
 
+    console.log(token);
+
     const isCoinAlreadyBookmarked =
       bookmarks && bookmarks.some((bookmark) => bookmark.coinId === itemId);
 
-    if (!isCoinAlreadyBookmarked) {
-      // Adding coin to database
-      try {
-        const { data, error, status } = await supabase
-          .from("bookmarks")
-          .insert([{ coinId: itemId }]);
-        // .select();
+    if (token) {
+      if (!isCoinAlreadyBookmarked) {
+        // Adding coin to database
+        try {
+          const { data, error, status } = await supabase
+            .from("bookmarks")
+            .insert([{ coinId: itemId, user_id: userId }]);
+          // .select();
 
-        console.log("Supabase Response:", { data, error, status });
-
-        if (data) {
-          console.log("Data inserted successfully:", data);
-          fetchId();
-        }
-
-        if (error) {
           console.log("Supabase Response:", { data, error, status });
+          toast.success("Bookmark Successful!");
+
+          if (data) {
+            console.log("Data inserted successfully:", data);
+            fetchId();
+            toast.success("Bookmark Successful!");
+          }
+
+          if (error) {
+            console.log("Supabase Response:", { data, error, status });
+            toast.error("Bookmark Unsuccessful!");
+          }
+        } catch (error) {
+          console.log("Error inserting data:", error.message);
         }
-      } catch (error) {
-        console.log("Error inserting data:", error.message);
       }
-    }
 
-    // If Item is already bookmarked
-    else {
-      try {
-        const { data, error } = await supabase
-          .from("bookmarks")
-          .delete()
-          .eq("coinId", itemId);
+      // If Item is already bookmarked
+      else {
+        try {
+          const { data, error } = await supabase
+            .from("bookmarks")
+            .delete()
+            .eq("coinId", itemId);
 
-        if (data) {
-          console.log("Bookmark removed successfully:", data);
-          console.log(market);
+          if (data) {
+            console.log("Bookmark removed successfully:", data);
+            // console.log(market);
+          }
+          //   console.log("Error removing bookmark:", error);
+
+          // if (error) {
+          // }
+        } catch (error) {
+          console.log("Error removing bookmark:", error);
         }
-
-        // if (error) {
-        //   console.log("Error removing bookmark:", error);
-        // }
-      } catch (error) {
-        console.log("Error removing bookmark:", error);
       }
+    } else {
+      toast.warning("You're notlogged in");
     }
   };
 
@@ -210,7 +235,7 @@ function Market({ updateData, getBookmarkHandler }) {
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
   const usd = "usd";
   const pageNo = 1;
-  const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=10&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
+  const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=40&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   // Top Gainers API  const gainer = "percent_change_percentage_24h";
   const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=100&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
@@ -229,8 +254,6 @@ function Market({ updateData, getBookmarkHandler }) {
           }))
         );
 
-        // Data for the top 3 coins in the header
-        // updateData(data.slice(0, 3));
         // console.log(data.slice(0, 3));
       });
 
@@ -255,7 +278,7 @@ function Market({ updateData, getBookmarkHandler }) {
           Gainers: topGainers,
           Losers: topLosers,
         });
-        updateData(data.slice(0, 50));
+        // updateData(data.slice(0, 50));
       });
   }, []);
 
@@ -299,6 +322,7 @@ function Market({ updateData, getBookmarkHandler }) {
 
       .then((data) => {
         setMarket(data);
+        // console.log(data);
         setLink({
           coin: true,
           gainer: false,
@@ -325,6 +349,8 @@ function Market({ updateData, getBookmarkHandler }) {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  // console.log(market);
+
   const marketData =
     market &&
     market.map((item) => {
@@ -333,21 +359,23 @@ function Market({ updateData, getBookmarkHandler }) {
           ? "#27ca4e"
           : "#ff3a33";
 
-      const renderChart = (
-        <Charts
-          height="60%"
-          id="charts"
-          options={{ ...options, colors: [lineColor] }}
-          series={[
-            {
-              name: "history",
-              data: item.sparkline_in_7d.price,
-            },
-          ]}
-          type="line"
-          width="150"
-        />
-      );
+      // console.log(item.sparkline_in_7d.price.length);
+
+      // const renderChart = (
+      //   <Charts
+      //     height="60%"
+      //     id="charts"
+      //     options={{ ...options, colors: [lineColor] }}
+      //     series={[
+      //       {
+      //         name: "history",
+      //         data: item.sparkline_in_7d.price,
+      //       },
+      //     ]}
+      //     type="line"
+      //     width="150"
+      //   />
+      // );
 
       return (
         <tr key={item.symbol} id={item.id}>
@@ -393,7 +421,8 @@ function Market({ updateData, getBookmarkHandler }) {
             <p>${item.market_cap.toLocaleString()}</p>
           </td>
           <td className="days">
-            {isLoading ? <p>Loading...</p> : renderChart}
+            {/* {isLoading ? <p>Loading...</p> : renderChart} */}
+            ...
           </td>
         </tr>
       );
@@ -476,6 +505,19 @@ function Market({ updateData, getBookmarkHandler }) {
       </div>
 
       <div></div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        // pauseOnFocusLoss
+        draggable
+        // pauseOnHover
+        theme="dark"
+        // transition:Bounce
+      />
     </div>
   );
 }

@@ -1,8 +1,16 @@
 import "./Form.css";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import supabase from "./config/supabaseClient";
 
-function Form() {
+// Toasts
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.min.css";
+
+function Form({ token, setToken, handleToast }) {
+  let navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,6 +20,7 @@ function Form() {
     email: "",
     password: "",
     success: "",
+    errorr: "",
   });
 
   const handleChange = (e) => {
@@ -26,29 +35,59 @@ function Form() {
     validateForm();
   };
 
-  const validateForm = () => {
-    let isValid = true;
-    const errors = {};
+  const validateForm = async () => {
+    // let isValid = true;
+    // const errors = {};
 
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      errors.email = "Invalid Email";
-      isValid = false;
-    }
+    // // Validate email
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailRegex.test(formData.email)) {
+    //   errors.email = "Invalid Email";
+    //   isValid = false;
+    // }
 
-    // Validate password
-    if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-      isValid = false;
-    }
+    // // Validate password
+    // if (formData.password.length < 6) {
+    //   errors.password = "Password must be at least 6 characters";
+    //   isValid = false;
+    // }
 
-    setFormErrors(errors);
+    // setFormErrors(errors);
 
-    if (isValid) {
-      // Submit form or perform other action
-      errors.success = "Form submitted successfully!";
-      console.log("Form submitted successfully:", formData);
+    // if (isValid) {
+    try {
+      const { data, session, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (error) {
+        // throw error;
+        // console.log(data);
+        // // console.log(session);
+
+        // // alert("yay!");
+        // alert("Login successful!");
+        // Handle error
+        console.error("Error logging in:", error.message);
+        // errors.login = error.message;
+        // alert(error.message);
+        error.errorr = "email or password incorrect";
+        toast.error("User does not exist");
+      } else {
+        // Handle success
+        console.log("Login successful!:", data);
+
+        setToken(data);
+        toast.success("Login successful");
+
+        navigate("/portfolio");
+      }
+    } catch (error) {
+      // console.error("Error logging in:", error.message);
+      // errors.signUp = error.message;
+      console.log(error);
+      alert("Login failed. Please check your credentials.");
     }
   };
 
@@ -60,11 +99,11 @@ function Form() {
   };
   return (
     <div className="form">
-      <main class="main">
+      <main className="main">
         {/* <!-- Login --> */}
-        <section class="logIn">
+        <section className="logIn">
           <div id="loginContent">
-            <div class="details">
+            <div className="details">
               <h1>Login</h1>
               <form id="registrationForm" onSubmit={handleSubmit}>
                 <input
@@ -101,12 +140,18 @@ function Form() {
                   <span className="error"> </span>
                 )}
 
+                {/* {formErrors.errorr ? (
+                  <span className="error">{formErrors.errorr}</span>
+                ) : (
+                  <span className="error"> </span>
+                )} */}
+
                 <p>Forgotten Password?</p>
                 <input type="submit" value="Log In" className="button" />
 
                 <p>
                   Don't have an account?{" "}
-                  <span class="signUp">
+                  <span className="signUp">
                     <NavLink to="/signup" className="navlink">
                       Sign Up
                     </NavLink>
@@ -157,6 +202,19 @@ function Form() {
           </div>
         </section> */}
       </main>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        // pauseOnFocusLoss
+        draggable
+        // pauseOnHover
+        theme="dark"
+        // transition:Bounce
+      />
     </div>
   );
 }
