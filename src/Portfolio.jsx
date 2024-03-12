@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Portfolio.css";
 import Navbar from "./Navbar";
 import Charts from "react-apexcharts";
@@ -12,12 +12,27 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
-export default function Portfolio({ token, setToken, toasts }) {
+export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
   const [bookmarks, setBookmarks] = useState();
   const [bookmarkList, setBookmarkList] = useState([]);
   const [fetchError, setFetchError] = useState(null);
 
-  toasts && toast.success("Login successful");
+  useEffect(() => {
+    // Check if there's a token and login just occurred
+    if (token && justLoggedIn) {
+      // Display toast notification
+      toast.success("Login successful");
+      // Reset the flag
+      setJustLoggedIn(false);
+    }
+  }, [token, justLoggedIn]);
+
+  // Function to set the flag when login occurs
+  // const handleLogin = () => {
+  // setJustLoggedIn(true);
+  // };
+
+  // toasts && toast.success("Login successful");
 
   useEffect(() => {
     const fetchId = async () => {

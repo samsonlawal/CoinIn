@@ -8,7 +8,7 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
-function Form({ token, setToken, handleToast }) {
+function Form({ token, setToken, handleToast, handleLogin }) {
   let navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -79,7 +79,8 @@ function Form({ token, setToken, handleToast }) {
         console.log("Login successful!:", data);
 
         setToken(data);
-        toast.success("Login successful");
+        // toast.success("Login successful");
+        handleLogin();
 
         navigate("/portfolio");
       }

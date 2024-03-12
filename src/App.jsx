@@ -22,6 +22,12 @@ function App() {
   const [token, setToken] = useState(false);
   const [toasts, setToast] = useState(false);
 
+  const [justLoggedIn, setJustLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setJustLoggedIn(true);
+  };
+
   const handleToast = () => {
     // Logic for successful login
     //  setIsLoggedIn(true);
@@ -97,22 +103,6 @@ function App() {
             />
           ),
         },
-
-        // status
-        //   ? {
-        //       path: "portfolio",
-        //       element: (
-        //         <Portfolio
-        //           bookmarks={bookmarks}
-        //           status={status}
-        //           // setStatus={setStatus}
-        //         />
-        //       ),
-        //     }
-        //   : {
-        //       path: "login",
-        //       element: <LoginForm status={status} setStatus={setStatus} />,
-        //     },
         {
           path: "portfolio",
           element: (
@@ -122,6 +112,8 @@ function App() {
               toasts={toasts}
               // toasty={toasty}
               // setStatus={setStatus}
+              justLoggedIn={justLoggedIn}
+              setJustLoggedIn={setJustLoggedIn}
             />
           ),
         },
@@ -133,6 +125,7 @@ function App() {
               token={token}
               setToken={setToken}
               handleToast={handleToast}
+              handleLogin={handleLogin}
             />
           ),
         },
