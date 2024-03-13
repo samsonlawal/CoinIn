@@ -224,7 +224,7 @@ function Market({ getBookmarkHandler, token }) {
         }
       }
     } else {
-      toast.warning("You're notlogged in");
+      toast.warning("You're not logged in");
     }
   };
 
@@ -433,7 +433,7 @@ function Market({ getBookmarkHandler, token }) {
   return (
     <div className="table-div">
       {/* <div className="market-text"> */}
-      <h1 className="market_header">Cryptocurrencies</h1>
+      <h1 className="market_header">Market</h1>
       {/* <h3>Cryptocurrency Prices by Market Cap</h3> */}
       {/* <p>
           The global cryptocurrency market cap today is $1.36 Trillion, a 3.2%
