@@ -432,16 +432,17 @@ function Market({ getBookmarkHandler, token }) {
 
   return (
     <div className="table-div">
-      <div className="market-text">
-        <h3>Cryptocurrency Prices by Market Cap</h3>
-        <p>
+      {/* <div className="market-text"> */}
+      <h1 className="market_header">Cryptocurrencies</h1>
+      {/* <h3>Cryptocurrency Prices by Market Cap</h3> */}
+      {/* <p>
           The global cryptocurrency market cap today is $1.36 Trillion, a 3.2%
           change in the last 24 hours. <br />
           Total cryptocurrency trading volume in the last day is at $86.5
           Billion. Bitcoin dominance is at 50.9% and Ethereum dominance is at
           16.3%.
-        </p>
-      </div>
+        </p> */}
+      {/* </div> */}
 
       <div className="linkers">
         <div className="top-shelf">
