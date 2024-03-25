@@ -3,7 +3,8 @@
 }
 
 .footer-div {
-  padding-bottom: 70px;
+  /* padding-bottom: 70px; */
+  width: 500px;
 }
 
 .footer-div h2 {
@@ -23,21 +24,23 @@
   justify-content: start;
   align-items: start;
   flex-direction: row;
-  gap: 60px;
-  cursor: pointer;
+  gap: 150px;
+  padding-bottom: 50px;
 }
 
-.footer-flex p {
-  cursor: pointer;
-}
-
-.footer-flex p:hover {
+.comm p:hover {
   color: aliceblue;
+  cursor: pointer;
 }
 
-.comm {
-  padding-bottom: 70px;
+.support p:hover {
+  color: aliceblue;
+  cursor: pointer;
 }
+
+/* .comm {
+  padding-bottom: 30px;
+} */
 
 .comm h4 {
   padding-bottom: 10px;
@@ -50,3 +53,6 @@
   color: white;
   font-family: "Montserrat", sans-serif;
 }
+
+/* .copy {
+} */
