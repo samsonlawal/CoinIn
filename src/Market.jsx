@@ -9,6 +9,7 @@ import supabase from "./config/supabaseClient";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ChevronLeft, ChevronRight } from "react-feather";
 
 function Market({ getBookmarkHandler, token }) {
   // State that gets the datas from the database
@@ -20,6 +21,10 @@ function Market({ getBookmarkHandler, token }) {
 
   // State for Marketdata
   const [market, setMarket] = useState([]);
+
+  const [pageNo, setPageNo] = useState(1);
+
+  const [ApiChecker, setApiChecker] = useState(true);
 
   // Top gainer and losers state
   const [top, setTop] = useState({
@@ -234,11 +239,13 @@ function Market({ getBookmarkHandler, token }) {
   // MARKET API endpoint, key and keywords
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
   const usd = "usd";
-  const pageNo = 1;
-  const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=40&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
+  // let pageNo = 1;
+  const perPage = 10;
+  // const itemsPerPageToShow = 10;
+  const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=${perPage}&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   // Top Gainers API  const gainer = "percent_change_percentage_24h";
-  const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=100&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
+  const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=200&page=1&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   useEffect(() => {
     // Fetchig Process all market data
@@ -280,10 +287,11 @@ function Market({ getBookmarkHandler, token }) {
         });
         // updateData(data.slice(0, 50));
       });
-  }, []);
+  }, [pageNo]);
 
   function HandleGainer() {
     setMarket(top.Gainers);
+    setApiChecker(false);
 
     setLink({
       coin: false,
@@ -296,6 +304,7 @@ function Market({ getBookmarkHandler, token }) {
 
   function HandleLoser() {
     setMarket(top.Losers);
+    setApiChecker(false);
     setLink({
       coin: false,
       gainer: false,
@@ -305,18 +314,20 @@ function Market({ getBookmarkHandler, token }) {
     setIsLoading((prevLoading) => !prevLoading);
   }
 
-  function HandleTrending() {
-    setMarket(top.Losers);
-    setLink({
-      coin: false,
-      gainer: false,
-      loser: false,
-      currentData: "Trending",
-    });
-    setIsLoading((prevLoading) => !prevLoading);
-  }
+  // function HandleTrending() {
+  //   setMarket(top.Losers);
+  //   setLink({
+  //     coin: false,
+  //     gainer: false,
+  //     loser: false,
+  //     currentData: "Trending",
+  //   });
+  //   setIsLoading((prevLoading) => !prevLoading);
+  // }
 
   function HandleMarket() {
+    setApiChecker(true);
+
     fetch(apiURL)
       .then((response) => response.json())
 
@@ -348,6 +359,43 @@ function Market({ getBookmarkHandler, token }) {
     // Cleanup the timeout when the component unmounts or if it gets updated
     return () => clearTimeout(timeoutId);
   }, []);
+
+  // Paginatioin
+  function nextHandler() {
+    if (pageNo < 5) {
+      setPageNo(pageNo + 1);
+      console.log(pageNo);
+      return pageNo;
+    }
+  }
+
+  function prevHandler() {
+    if (pageNo > 1) {
+      setPageNo(pageNo - 1);
+      console.log(pageNo);
+      return pageNo;
+    }
+  }
+
+  function page1() {
+    setPageNo(1);
+  }
+
+  function page2() {
+    setPageNo(2);
+  }
+
+  function page3() {
+    setPageNo(3);
+  }
+
+  function page4() {
+    setPageNo(4);
+  }
+
+  function page5() {
+    setPageNo(5);
+  }
 
   // console.log(market);
 
@@ -431,94 +479,126 @@ function Market({ getBookmarkHandler, token }) {
   // ********************JSX CODE*************************************
 
   return (
-    <div className="table-div">
-      {/* <div className="market-text"> */}
-      <h1 className="market_header">Market</h1>
-      {/* <h3>Cryptocurrency Prices by Market Cap</h3> */}
-      {/* <p>
+    <div className="market-div">
+      <div className="table-div">
+        {/* <div className="market-text"> */}
+        <h1 className="market_header">Market</h1>
+        {/* <h3>Cryptocurrency Prices by Market Cap</h3> */}
+        {/* <p>
           The global cryptocurrency market cap today is $1.36 Trillion, a 3.2%
           change in the last 24 hours. <br />
           Total cryptocurrency trading volume in the last day is at $86.5
           Billion. Bitcoin dominance is at 50.9% and Ethereum dominance is at
           16.3%.
         </p> */}
-      {/* </div> */}
+        {/* </div> */}
 
-      <div className="linkers">
-        <div className="top-shelf">
-          <button
-            onClick={HandleMarket}
-            className={link.coin ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Cryptocurrencies
-          </button>
-          <button
-            onClick={HandleGainer}
-            className={link.gainer ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Gainers
-          </button>
-          <button
-            onClick={HandleLoser}
-            className={link.loser ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Losers
-          </button>
-          {/* <button
+        <div className="linkers">
+          <div className="top-shelf">
+            <button
+              onClick={HandleMarket}
+              className={link.coin ? trueStyle : falseStyle}
+              // className={link.coin ? "active" : ""}
+            >
+              Cryptocurrencies
+            </button>
+            <button
+              onClick={HandleGainer}
+              className={link.gainer ? trueStyle : falseStyle}
+              // className={link.coin ? "active" : ""}
+            >
+              Top Gainers
+            </button>
+            <button
+              onClick={HandleLoser}
+              className={link.loser ? trueStyle : falseStyle}
+              // className={link.coin ? "active" : ""}
+            >
+              Top Losers
+            </button>
+            {/* <button
             onClick={HandleTrending}
             className={link.trending ? trueStyle : falseStyle}
             // className={link.coin ? "active" : ""}
           >
             Trending
           </button> */}
+          </div>
         </div>
-      </div>
 
-      <div className="table-shelf">
-        <table>
-          <thead>
-            <tr>
-              <th className="save">*</th>
-              <th className="order">#</th>
-              <th className="name">Coin</th>
-              <th className="price">Price</th>
-              <th className="vol">24h</th>
-              <th className="cap">Market Cap</th>
-              <th className="days">7 days</th>
-            </tr>
-          </thead>
-          <tbody>{marketData}</tbody>
-        </table>
+        <div className="table-shelf">
+          <table>
+            <thead>
+              <tr>
+                <th className="save">*</th>
+                <th className="order">#</th>
+                <th className="name">Coin</th>
+                <th className="price">Price</th>
+                <th className="vol">24h</th>
+                <th className="cap">Market Cap</th>
+                <th className="days">7 days</th>
+              </tr>
+            </thead>
+            <tbody>{marketData}</tbody>
+          </table>
 
-        <div>
-          {fetchError && <p>{fetchError}</p>}
-          {bookmarks && (
-            <div>
-              {bookmarks.map((bookmark) => {
-                <p>{bookmark.coinId}</p>;
-              })}
-            </div>
-          )}
+          <div>
+            {fetchError && <p>{fetchError}</p>}
+            {bookmarks && (
+              <div>
+                {bookmarks.map((bookmark) => {
+                  <p>{bookmark.coinId}</p>;
+                })}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      <div></div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        // pauseOnFocusLoss
-        draggable
-        // pauseOnHover
-        theme="dark"
-        // transition:Bounce
-      />
+        <div></div>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          // pauseOnFocusLoss
+          draggable
+          // pauseOnHover
+          theme="dark"
+          // transition:Bounce
+        />
+      </div>
+      {/* Pagination */}
+
+      {/* {setApiChecker(false)} */}
+      {ApiChecker ? (
+        <div className="pagination ">
+          <p onClick={prevHandler}>
+            <ChevronLeft size={13} />
+          </p>
+          <p onClick={page1} className={`${pageNo === 1 ? "page" : "notPage"}`}>
+            1
+          </p>
+          <p onClick={page2} className={`${pageNo === 2 ? "page" : "notPage"}`}>
+            2
+          </p>
+          <p onClick={page3} className={`${pageNo === 3 ? "page" : "notPage"}`}>
+            3
+          </p>
+          <p onClick={page4} className={`${pageNo === 4 ? "page" : "notPage"}`}>
+            4
+          </p>
+          <p onClick={page5} className={`${pageNo === 5 ? "page" : "notPage"}`}>
+            5
+          </p>
+          <p onClick={nextHandler}>
+            <ChevronRight size={13} />
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

@@ -19,7 +19,7 @@ function App() {
   const [home, setHome] = useState(true);
   const [bookmarks, setBookmarks] = useState([]);
 
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState();
   const [toasts, setToast] = useState(false);
 
   const [justLoggedIn, setJustLoggedIn] = useState(false);
@@ -38,9 +38,9 @@ function App() {
   //   toast.success("Login successful");
   // };
 
-  if (token) {
-    sessionStorage.setItem("token", JSON.stringify(token));
-  }
+  // if (token) {
+  //   sessionStorage.setItem("token", JSON.stringify(token));
+  // }
 
   // function to get the bookmark from database
   const getBookmarkHandler = (bookmarkData) => {
@@ -48,9 +48,12 @@ function App() {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("satus")) {
+    if (sessionStorage.getItem("token")) {
       let data = JSON.parse(sessionStorage.getItem("token"));
       setToken(data);
+      console.log(data);
+    } else {
+      setToast(false);
     }
     // console.log(status);
   }, []);
@@ -63,7 +66,7 @@ function App() {
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
   const usd = "usd";
   const pageNo = 1;
-  const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=100&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
+  const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=200&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   useEffect(() => {
     fetch(topGainers)

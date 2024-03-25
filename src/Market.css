@@ -23,9 +23,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  /* border: 0.5px solid gray; */
+  border: 0.5px solid #464362;
   border-radius: 50px;
-  background-color: #464362;
+  /* background-color: #464362; */
+  /* padding: 10px 10px; */
 }
 
 .linkers {
@@ -188,17 +189,22 @@ td p {
 
 button {
   padding: 12px 20px;
+  /* height: ; */
   margin: 0px 20px;
   background: none;
-  color: #bcbcbc;
+  color: #fff;
   border: none;
   margin: 0px;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 30px;
+  font-family: "Montserrat", sans-serif;
 }
 
 button.active {
-  /* background-color: #141414; */
-  color: white;
+  background-color: white;
+  /* color: white; */
+  color: #161618;
 }
 
 button:hover {
@@ -241,4 +247,54 @@ button:hover {
 
 .bouncing-loader > div:nth-child(3) {
   animation-delay: 0.4s;
+}
+
+.market-div {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.pagination {
+  margin: 50px 0px;
+  width: fit-content;
+  /* height: 400px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-color: #464362;
+  border-radius: 50px;
+  padding: 5px 20px;
+}
+
+.pagination p {
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  user-select: none;
+}
+
+.pagination p:hover {
+  cursor: pointer;
+  background-color: #161618;
+}
+
+.page {
+  background-color: #161618;
+}
+
+.notPage {
+  background-color: #464362;
 }

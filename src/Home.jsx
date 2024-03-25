@@ -7,17 +7,15 @@ import Faq from "./Faq";
 // import Market from "./Market";
 // import Portfolio from "./Portfolio";
 import TopCoins from "./img/TopCoins";
+import Footer from "./Footer";
 
 function Home({ headerTop }) {
   return (
     <>
-      {/* <Navbar /> */}
       <Header />
       <TopCoins headerTop={headerTop} />
-      {/* <Market  /> */}
       <Faq />
-
-      {/* <Portfolio bookmarks={bookmarks} /> */}
+      <Footer />
     </>
   );
 }
