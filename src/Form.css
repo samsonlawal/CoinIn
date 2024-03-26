@@ -125,6 +125,10 @@
   background-color: #3c3957;
 }
 
+.main .button.clicked {
+  background-color: #464362; /* Change to red when clicked */
+}
+
 .details p {
   font-size: 13px;
   color: black;

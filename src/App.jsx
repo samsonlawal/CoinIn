@@ -38,9 +38,9 @@ function App() {
   //   toast.success("Login successful");
   // };
 
-  if (token) {
-    sessionStorage.setItem("token", JSON.stringify(token));
-  }
+  // if (token) {
+  //   sessionStorage.setItem("token", JSON.stringify(token));
+  // }
 
   // function to get the bookmark from database
   const getBookmarkHandler = (bookmarkData) => {

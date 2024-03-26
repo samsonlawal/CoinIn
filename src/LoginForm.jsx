@@ -10,7 +10,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 function Form({ token, setToken, handleToast, handleLogin }) {
   let navigate = useNavigate();
-
+  const [clicked, setClicked] = useState(false);
+  const [value, setValue] = useState("Log In");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -62,23 +63,18 @@ function Form({ token, setToken, handleToast, handleLogin }) {
       });
 
       if (error) {
-        // throw error;
-        // console.log(data);
-        // // console.log(session);
-
-        // // alert("yay!");
-        // alert("Login successful!");
         // Handle error
-        console.error("Error logging in:", error.message);
-        // errors.login = error.message;
-        // alert(error.message);
+        // console.error("Error logging in:", error.message);
+
         error.errorr = "email or password incorrect";
         toast.error("User does not exist");
       } else {
         // Handle success
-        console.log("Login successful!:", data);
+        // console.log("Login successful!:", data);
 
         setToken(data);
+        setValue("Logging In...");
+        sessionStorage.setItem("token", JSON.stringify(data));
         // toast.success("Login successful");
         handleLogin();
 
@@ -90,6 +86,15 @@ function Form({ token, setToken, handleToast, handleLogin }) {
       console.log(error);
       alert("Login failed. Please check your credentials.");
     }
+  };
+
+  const handleClick = () => {
+    // Toggle the clicked state
+    setClicked(true);
+    // After 1 second, revert back to original color
+    setTimeout(() => {
+      setClicked(false);
+    }, 100);
   };
 
   // Remove error on focus
@@ -148,7 +153,12 @@ function Form({ token, setToken, handleToast, handleLogin }) {
                 )} */}
 
                 <p>Forgotten Password?</p>
-                <input type="submit" value="Log In" className="button" />
+                <input
+                  type="submit"
+                  value={value}
+                  className={`button ${clicked ? "clicked" : ""}`}
+                  onClick={handleClick}
+                />
 
                 <p>
                   Don't have an account?{" "}
