@@ -20,6 +20,8 @@ function Market({ getBookmarkHandler, token }) {
   const [bookmarked, setBookmarked] = useState("");
 
   // State for Marketdata
+  const [coin, setCoin] = useState([]);
+
   const [market, setMarket] = useState([]);
 
   const [pageNo, setPageNo] = useState(1);
@@ -76,87 +78,87 @@ function Market({ getBookmarkHandler, token }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // const [options, setOption] = useState({
-  //   chart: {
-  //     type: "line",
-  //     toolbar: false, // Hide toolbar
-  //     animations: {
-  //       enabled: false,
-  //     },
-  //   },
+  const [options, setOption] = useState({
+    chart: {
+      type: "line",
+      toolbar: false, // Hide toolbar
+      animations: {
+        enabled: false,
+      },
+    },
 
-  //   noData: {
-  //     text: "Loading...",
-  //     align: "center",
-  //     verticalAlign: "middle",
-  //     offsetX: 0,
-  //     offsetY: 0,
-  //     style: {
-  //       color: "#000000",
-  //       fontSize: "14px",
-  //       fontFamily: "Helvetica",
-  //     },
-  //   },
+    noData: {
+      text: "Loading...",
+      align: "center",
+      verticalAlign: "middle",
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: "#000000",
+        fontSize: "14px",
+        fontFamily: "Helvetica",
+      },
+    },
 
-  //   series: [
-  //     {
-  //       name: "Prices",
-  //       data: [],
-  //     },
-  //   ],
-  //   // colors: [],
+    series: [
+      {
+        name: "Prices",
+        data: [],
+      },
+    ],
+    // colors: [],
 
-  //   plotOptions: {
-  //     series: {
-  //       marker: {
-  //         enabled: false, // Disable markers (points) on the line
-  //       },
+    plotOptions: {
+      series: {
+        marker: {
+          enabled: false, // Disable markers (points) on the line
+        },
 
-  //       hover: {
-  //         size: 0, // Set the size of the hover effect to 0 to disable it
-  //       },
-  //     },
-  //   },
-  //   stroke: {
-  //     width: 1, // Set the width of the line here
-  //   },
-  //   xaxis: {
-  //     labels: {
-  //       show: false, // Hide X-axis labels
-  //     },
-  //     axisBorder: {
-  //       show: false, // Hide X-axis border
-  //     },
-  //     axisTicks: {
-  //       show: false, // Hide X-axis ticks
-  //     },
-  //   },
-  //   fill: {
-  //     type: ["solid"],
-  //   },
+        hover: {
+          size: 0, // Set the size of the hover effect to 0 to disable it
+        },
+      },
+    },
+    stroke: {
+      width: 1, // Set the width of the line here
+    },
+    xaxis: {
+      labels: {
+        show: false, // Hide X-axis labels
+      },
+      axisBorder: {
+        show: false, // Hide X-axis border
+      },
+      axisTicks: {
+        show: false, // Hide X-axis ticks
+      },
+    },
+    fill: {
+      type: ["solid"],
+    },
 
-  //   yaxis: {
-  //     show: false,
-  //     labels: {
-  //       show: false, // Hide Y-axis labels
-  //     },
-  //     axisBorder: {
-  //       show: false, // Hide Y-axis border
-  //     },
-  //     axisTicks: {
-  //       show: false, // Hide Y-axis ticks
-  //     },
-  //     tooltip: {
-  //       enabled: false,
-  //     },
-  //   },
-  //   grid: {
-  //     show: false, // Hide grid lines
-  //   },
-  //   tooltip: {
-  //     enabled: false,
-  //   },
-  // });
+    yaxis: {
+      show: false,
+      labels: {
+        show: false, // Hide Y-axis labels
+      },
+      axisBorder: {
+        show: false, // Hide Y-axis border
+      },
+      axisTicks: {
+        show: false, // Hide Y-axis ticks
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
+    grid: {
+      show: false, // Hide grid lines
+    },
+    tooltip: {
+      enabled: false,
+    },
+  });
 
   // Bookmark function
   const BookmarkHandler = async (itemId) => {
@@ -175,9 +177,9 @@ function Market({ getBookmarkHandler, token }) {
     );
 
     setBookmarked({ ...bookmarked, itemId });
-
     console.log(token);
 
+    // Adding bookmarks, checking bookmarks
     const isCoinAlreadyBookmarked =
       bookmarks && bookmarks.some((bookmark) => bookmark.coinId === itemId);
 
@@ -188,7 +190,6 @@ function Market({ getBookmarkHandler, token }) {
           const { data, error, status } = await supabase
             .from("bookmarks")
             .insert([{ coinId: itemId, user_id: userId }]);
-          // .select();
 
           console.log("Supabase Response:", { data, error, status });
           toast.success("Bookmark Successful!");
@@ -217,15 +218,11 @@ function Market({ getBookmarkHandler, token }) {
             .eq("coinId", itemId);
 
           if (data) {
-            console.log("Bookmark removed successfully:", data);
+            toast.success("Bookmark removed successfully");
             // console.log(market);
           }
-          //   console.log("Error removing bookmark:", error);
-
-          // if (error) {
-          // }
         } catch (error) {
-          console.log("Error removing bookmark:", error);
+          toast.log("Error removing bookmark");
         }
       }
     } else {
@@ -233,94 +230,83 @@ function Market({ getBookmarkHandler, token }) {
     }
   };
 
-  // console.log(bookmarks);
-  // console.log(market);
-
   // MARKET API endpoint, key and keywords
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
   const usd = "usd";
+
   // let pageNo = 1;
-  const perPage = 10;
+  const perPage = 100;
   // const itemsPerPageToShow = 10;
-  const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=${perPage}&page=${pageNo}&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
+
+  const apiURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=100&page=1&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   // Top Gainers API  const gainer = "percent_change_percentage_24h";
   const topGainers = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${usd}&per_page=200&page=1&x_cg_demo_api_key=${apiKEY}&sparkline=true`;
 
   useEffect(() => {
     // Fetchig Process all market data
-
     fetch(apiURL)
       .then((response) => response.json())
-
       .then((data) => {
         setMarket(
-          data.map((item) => ({
+          data.slice(0, 10).map((item) => ({
             ...item,
             bookmarked: false,
           }))
         );
+        // Set the 'coin' state
+        setCoin(data);
 
-        // console.log(data.slice(0, 3));
+        // Slice the data and set the 'market' state based on the fetched data
       });
 
     // *************FETCH GAINERS AND LOSERS*************
-    fetch(topGainers)
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the data returned by the API
+    // fetch(topGainers)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // Handle the data returned by the API
 
-        // Sort coins by percentage change
-        const sortedCoins = data.sort(
-          (a, b) =>
-            b.price_change_percentage_24h - a.price_change_percentage_24h
-        );
+    //     // Sort coins by percentage change
+    //     const sortedCoins = data.sort(
+    //       (a, b) =>
+    //         b.price_change_percentage_24h - a.price_change_percentage_24h
+    //     );
 
-        // Get top gainers and losers
-        const topGainers = sortedCoins.slice(0, 10);
-        const topLosers = sortedCoins.slice(-10).reverse();
+    //     // Get top gainers and losers
+    //     const topGainers = sortedCoins.slice(0, 10);
+    //     const topLosers = sortedCoins.slice(-10).reverse();
 
-        setTop({
-          ...top,
-          Gainers: topGainers,
-          Losers: topLosers,
-        });
-        // updateData(data.slice(0, 50));
-      });
-  }, [pageNo]);
+    //     setTop({
+    //       ...top,
+    //       Gainers: topGainers,
+    //       Losers: topLosers,
+    //     });
+    //     // updateData(data.slice(0, 50));
+    //   });
+    console.log(coin);
+  }, []);
 
-  function HandleGainer() {
-    setMarket(top.Gainers);
-    setApiChecker(false);
+  // function HandleGainer() {
+  //   setMarket(top.Gainers);
+  //   setApiChecker(false);
 
-    setLink({
-      coin: false,
-      gainer: true,
-      loser: false,
-      currentData: "Top Gainers",
-    });
-    setIsLoading((prevLoading) => !prevLoading);
-  }
+  //   setLink({
+  //     coin: false,
+  //     gainer: true,
+  //     loser: false,
+  //     currentData: "Top Gainers",
+  //   });
+  //   setIsLoading((prevLoading) => !prevLoading);
+  // }
 
-  function HandleLoser() {
-    setMarket(top.Losers);
-    setApiChecker(false);
-    setLink({
-      coin: false,
-      gainer: false,
-      loser: true,
-      currentData: "Top Losers",
-    });
-    setIsLoading((prevLoading) => !prevLoading);
-  }
-
-  // function HandleTrending() {
+  // function HandleLoser() {
   //   setMarket(top.Losers);
+  //   setApiChecker(false);
   //   setLink({
   //     coin: false,
   //     gainer: false,
-  //     loser: false,
-  //     currentData: "Trending",
+  //     loser: true,
+  //     currentData: "Top Losers",
   //   });
   //   setIsLoading((prevLoading) => !prevLoading);
   // }
@@ -328,19 +314,19 @@ function Market({ getBookmarkHandler, token }) {
   function HandleMarket() {
     setApiChecker(true);
 
-    fetch(apiURL)
-      .then((response) => response.json())
+    setMarket(
+      coin.slice(0, 10).map((item) => ({
+        ...item,
+        bookmarked: false,
+      }))
+    );
 
-      .then((data) => {
-        setMarket(data);
-        // console.log(data);
-        setLink({
-          coin: true,
-          gainer: false,
-          loser: false,
-          currentData: "All Cryptocurrencies",
-        });
-      });
+    setLink({
+      coin: true,
+      gainer: false,
+      loser: false,
+      currentData: "All Cryptocurrencies",
+    });
 
     setIsLoading((prevLoading) => !prevLoading);
   }
@@ -358,43 +344,89 @@ function Market({ getBookmarkHandler, token }) {
 
     // Cleanup the timeout when the component unmounts or if it gets updated
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [isLoading]);
 
   // Paginatioin
   function nextHandler() {
-    if (pageNo < 5) {
+    setIsLoading(true);
+    if (pageNo < 10) {
       setPageNo(pageNo + 1);
-      console.log(pageNo);
-      return pageNo;
+      const startIndex = pageNo * 10;
+      const endIndex = (pageNo + 1) * 10;
+      setMarket(
+        coin.slice(startIndex, endIndex).map((item) => ({
+          ...item,
+          bookmarked: false,
+        }))
+      );
     }
   }
 
   function prevHandler() {
+    setIsLoading(true);
     if (pageNo > 1) {
       setPageNo(pageNo - 1);
-      console.log(pageNo);
-      return pageNo;
+      const startIndex = (pageNo - 2) * 10;
+      const endIndex = (pageNo - 1) * 10;
+      setMarket(
+        coin.slice(startIndex, endIndex).map((item) => ({
+          ...item,
+          bookmarked: false,
+        }))
+      );
+    } else {
+      ("");
     }
   }
 
   function page1() {
     setPageNo(1);
+    setMarket(
+      coin.slice(0, 10).map((item) => ({
+        ...item,
+        bookmarked: false,
+      }))
+    );
   }
 
   function page2() {
     setPageNo(2);
+    setMarket(
+      coin.slice(11, 20).map((item) => ({
+        ...item,
+        bookmarked: false,
+      }))
+    );
   }
 
   function page3() {
     setPageNo(3);
+    setMarket(
+      coin.slice(21, 30).map((item) => ({
+        ...item,
+        bookmarked: false,
+      }))
+    );
   }
 
   function page4() {
     setPageNo(4);
+    setMarket(
+      coin.slice(31, 40).map((item) => ({
+        ...item,
+        bookmarked: false,
+      }))
+    );
   }
 
   function page5() {
     setPageNo(5);
+    setMarket(
+      coin.slice(41, 50).map((item) => ({
+        ...item,
+        bookmarked: false,
+      }))
+    );
   }
 
   // console.log(market);
@@ -409,21 +441,21 @@ function Market({ getBookmarkHandler, token }) {
 
       // console.log(item.sparkline_in_7d.price.length);
 
-      // const renderChart = (
-      //   <Charts
-      //     height="60%"
-      //     id="charts"
-      //     options={{ ...options, colors: [lineColor] }}
-      //     series={[
-      //       {
-      //         name: "history",
-      //         data: item.sparkline_in_7d.price,
-      //       },
-      //     ]}
-      //     type="line"
-      //     width="150"
-      //   />
-      // );
+      const renderChart = (
+        <Charts
+          height="60%"
+          id="charts"
+          options={{ ...options, colors: [lineColor] }}
+          series={[
+            {
+              name: "history",
+              data: item.sparkline_in_7d.price,
+            },
+          ]}
+          type="line"
+          width="150"
+        />
+      );
 
       return (
         <tr key={item.symbol} id={item.id}>
@@ -436,11 +468,6 @@ function Market({ getBookmarkHandler, token }) {
                   ? "fa-solid"
                   : "fa-regular"
               }  `}
-              // className={`fa-star ${
-              //   bookmarks && bookmarks.some((obj) => obj.coinId === item.id)
-              //     ? "fa-solid"
-              //     : "fa-regular"
-              // }`}
               onClick={() => BookmarkHandler(item.id)}
             ></i>
           </td>
@@ -469,8 +496,7 @@ function Market({ getBookmarkHandler, token }) {
             <p>${item.market_cap.toLocaleString()}</p>
           </td>
           <td className="days">
-            {/* {isLoading ? <p>Loading...</p> : renderChart} */}
-            ...
+            {isLoading ? <p>Loading...</p> : renderChart}
           </td>
         </tr>
       );
@@ -481,17 +507,7 @@ function Market({ getBookmarkHandler, token }) {
   return (
     <div className="market-div">
       <div className="table-div">
-        {/* <div className="market-text"> */}
         <h1 className="market_header">Market</h1>
-        {/* <h3>Cryptocurrency Prices by Market Cap</h3> */}
-        {/* <p>
-          The global cryptocurrency market cap today is $1.36 Trillion, a 3.2%
-          change in the last 24 hours. <br />
-          Total cryptocurrency trading volume in the last day is at $86.5
-          Billion. Bitcoin dominance is at 50.9% and Ethereum dominance is at
-          16.3%.
-        </p> */}
-        {/* </div> */}
 
         <div className="linkers">
           <div className="top-shelf">
@@ -503,26 +519,19 @@ function Market({ getBookmarkHandler, token }) {
               Cryptocurrencies
             </button>
             <button
-              onClick={HandleGainer}
+              // onClick={HandleGainer}
               className={link.gainer ? trueStyle : falseStyle}
               // className={link.coin ? "active" : ""}
             >
               Top Gainers
             </button>
             <button
-              onClick={HandleLoser}
+              // onClick={HandleLoser}
               className={link.loser ? trueStyle : falseStyle}
               // className={link.coin ? "active" : ""}
             >
               Top Losers
             </button>
-            {/* <button
-            onClick={HandleTrending}
-            className={link.trending ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Trending
-          </button> */}
           </div>
         </div>
 
@@ -542,8 +551,7 @@ function Market({ getBookmarkHandler, token }) {
             <tbody>{marketData}</tbody>
           </table>
 
-          <div>
-            {fetchError && <p>{fetchError}</p>}
+          {/* <div>
             {bookmarks && (
               <div>
                 {bookmarks.map((bookmark) => {
@@ -551,7 +559,8 @@ function Market({ getBookmarkHandler, token }) {
                 })}
               </div>
             )}
-          </div>
+          </div> */}
+          {fetchError && <p>{fetchError}</p>}
         </div>
 
         <div></div>
@@ -570,9 +579,41 @@ function Market({ getBookmarkHandler, token }) {
         />
       </div>
       {/* Pagination */}
-
-      {/* {setApiChecker(false)} */}
       {ApiChecker ? (
+        <div className="pagination">
+          <p onClick={prevHandler}>
+            <ChevronLeft size={13} />
+          </p>
+          {[...Array(5)].map((_, index) => {
+            const pageNumber = index + 1;
+            if (pageNo <= 5) {
+              return (
+                <p
+                  key={pageNumber}
+                  onClick={() => goToPage(pageNumber)}
+                  className={pageNo === pageNumber ? "page" : "notPage"}
+                >
+                  {pageNumber}
+                </p>
+              );
+            } else if (pageNo >= 6 && pageNo <= 10) {
+              return (
+                <p
+                  key={pageNumber}
+                  onClick={() => goToPage(pageNumber + 5)}
+                  className={pageNo === pageNumber + 5 ? "page" : "notPage"}
+                >
+                  {pageNumber + 5}
+                </p>
+              );
+            }
+            return null;
+          })}
+          <p onClick={nextHandler}>
+            <ChevronRight size={13} />
+          </p>
+        </div>
+      ) : (
         <div className="pagination ">
           <p onClick={prevHandler}>
             <ChevronLeft size={13} />
@@ -596,8 +637,6 @@ function Market({ getBookmarkHandler, token }) {
             <ChevronRight size={13} />
           </p>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );

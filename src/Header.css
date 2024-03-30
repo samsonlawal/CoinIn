@@ -26,10 +26,11 @@ div.header {
   width: 55%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   text-align: left;
   flex-direction: column;
+  gap: 15px;
 }
 
 .heading {
@@ -39,6 +40,7 @@ div.header {
   /* background: -webkit-linear-gradient(225deg, aliceblue, #aca7cb, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
+  line-height: 70px;
 }
 
 .heading span {
@@ -48,10 +50,33 @@ div.header {
 }
 
 .sub-heading {
-  color: #797979;
+  color: #bcbcbc;
   font-family: "poppins", sans-serif;
   font-size: 19px;
   font-weight: 500;
+}
+
+.get_started {
+  background-color: #464362;
+  padding: 15px 30px;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.get_started a {
+  text-decoration: none;
+  color: white;
+}
+
+.get_started:hover {
+  background-color: #313044;
+  padding: 15px 30px;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .quick-market {

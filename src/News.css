@@ -1,0 +1,91 @@
+.news {
+  width: 100%;
+  height: auto;
+  display: grid;
+  place-items: center;
+  padding: 100px 50px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.news h1 {
+  font-family: "Montserrat", sans-serif;
+  color: aliceblue;
+  text-align: center;
+  font-size: 40px;
+  padding-bottom: 60px;
+}
+
+.cards {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.news .card {
+  width: 30%;
+  height: 300px;
+  /* background-color: #161618; */
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  padding: 10px 10px;
+  margin-bottom: 40px;
+  /* gap: 25px; */
+}
+
+.news .card .text {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  text-align: left;
+  gap: 10px;
+}
+
+.news-img {
+  height: 200px;
+  width: 360px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.news .card h3 {
+  font-size: 15px;
+  color: white;
+}
+
+.news .card .desc {
+  font-size: 14px;
+}
+
+.news .card .date {
+  font-size: 14px;
+  color: #bcbcbc;
+}
+
+.news .card a {
+  text-decoration: none;
+}
+
+.news button {
+  background-color: #464362;
+  margin-top: 30px;
+  padding: 15px 30px;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.news button:hover {
+  background-color: #313044;
+}

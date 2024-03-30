@@ -65,20 +65,7 @@ function Navbar({ updatePortfolio, token, setToken }) {
               </li>
             </>
           )}
-          <a href="#" className="gear" onClick={modalHandler}>
-            <i className="fa-solid fa-gear"></i>
-            <ul className={`dropdown ${modal ? "display" : ""}`}>
-              <div className="lang">
-                <p>Language</p>
-                <p>Eng</p>
-                {/* <i className="fa-solid fa-angle-down nav-arrow"></i> */}
-              </div>
-              <div className="mode">
-                <p>Drak Mode</p>
-                <p>obj</p>
-              </div>
-            </ul>
-          </a>
+
           {/* <li>
           <i class="fa-brands fa-twitter"></i>
         </li> */}

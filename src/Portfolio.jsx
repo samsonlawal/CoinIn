@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import "./Portfolio.css";
 import Navbar from "./Navbar";
 import Charts from "react-apexcharts";
@@ -6,6 +6,7 @@ import supabase from "./config/supabaseClient";
 import App from "./App";
 import LoginForm from "./LoginForm";
 import { NavLink } from "react-router-dom";
+import Chart from "./Chart";
 
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -130,88 +131,6 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // const [options, setOption] = useState({
-  //   chart: {
-  //     type: "line",
-  //     toolbar: false, // Hide toolbar
-  //     animations: {
-  //       enabled: false,
-  //     },
-  //   },
-
-  //   noData: {
-  //     text: "Loading...",
-  //     align: "center",
-  //     verticalAlign: "middle",
-  //     offsetX: 0,
-  //     offsetY: 0,
-  //     style: {
-  //       color: "#000000",
-  //       fontSize: "14px",
-  //       fontFamily: "Helvetica",
-  //     },
-  //   },
-
-  //   series: [
-  //     {
-  //       name: "Prices",
-  //       data: [],
-  //     },
-  //   ],
-  //   // colors: [],
-
-  //   plotOptions: {
-  //     series: {
-  //       marker: {
-  //         enabled: false, // Disable markers (points) on the line
-  //       },
-
-  //       hover: {
-  //         size: 0, // Set the size of the hover effect to 0 to disable it
-  //       },
-  //     },
-  //   },
-  //   stroke: {
-  //     width: 1, // Set the width of the line here
-  //   },
-  //   xaxis: {
-  //     labels: {
-  //       show: false, // Hide X-axis labels
-  //     },
-  //     axisBorder: {
-  //       show: false, // Hide X-axis border
-  //     },
-  //     axisTicks: {
-  //       show: false, // Hide X-axis ticks
-  //     },
-  //   },
-  //   fill: {
-  //     type: ["solid"],
-  //   },
-
-  //   yaxis: {
-  //     show: false,
-  //     labels: {
-  //       show: false, // Hide Y-axis labels
-  //     },
-  //     axisBorder: {
-  //       show: false, // Hide Y-axis border
-  //     },
-  //     axisTicks: {
-  //       show: false, // Hide Y-axis ticks
-  //     },
-  //     tooltip: {
-  //       enabled: false,
-  //     },
-  //   },
-  //   grid: {
-  //     show: false, // Hide grid lines
-  //   },
-  //   tooltip: {
-  //     enabled: false,
-  //   },
-  // });
-
   // Timer delay for the line graph
   useEffect(() => {
     // Simulate a 10-second delay
@@ -255,29 +174,14 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
                         .slice(-1)[0] >
                         item.prices.map(([_, secondItem]) => secondItem)[0]
                     );
-                    const lineColor =
-                      item.prices
-                        .map(([_, secondItem]) => secondItem)
-                        .slice(-1)[0] >
-                      item.prices.map(([_, secondItem]) => secondItem)[0]
-                        ? "#27ca4e"
-                        : "#ff3a33";
 
-                    // const renderChart = (
-                    //   <Charts
-                    //     height="60%"
-                    //     id="charts"
-                    //     options={{ ...options, colors: [lineColor] }}
-                    //     series={[
-                    //       {
-                    //         name: "history",
-                    //         data: item.prices,
-                    //       },
-                    //     ]}
-                    //     type="line"
-                    //     width="150"
-                    //   />
-                    // );
+                    const renderChart = (
+                      <Suspense fallback={<div>Loading Chart...</div>}>
+                        <Chart data={item.prices} />
+                      </Suspense>
+                    );
+
+                    console.log(item.prices);
                     return (
                       <tr key={item.symbol} id={item.id}>
                         <td className="saveButton">
@@ -326,8 +230,8 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
                           </p>
                         </td>
                         <td className="days">
-                          {/* {isLoading ? <p>Loading...</p> : renderChart} */}
-                          ...
+                          {renderChart}
+                          {/* ... */}
                         </td>
                       </tr>
                     );

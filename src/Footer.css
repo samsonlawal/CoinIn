@@ -1,5 +1,5 @@
 .div-footer {
-  padding: 50px 50px;
+  padding: 50px 100px 50px 50px;
 }
 
 .footer-div {
@@ -48,12 +48,18 @@
   font-size: 16px;
 }
 
-.footer-flex {
+.footer-links {
   display: flex;
   justify-content: start;
   align-items: start;
   flex-direction: row;
-  gap: 150px;
+  gap: 70px;
+}
+
+.footer-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
   padding-bottom: 50px;
 }
 
@@ -83,6 +89,15 @@
   color: white;
   font-family: "Montserrat", sans-serif;
   font-size: 17px;
+}
+
+.copy {
+  border-top: 1px solid #aca7cb;
+  padding: 50px 0px 0px 0px;
+}
+
+.copy p {
+  font-size: 14px;
 }
 
 /* .copy {

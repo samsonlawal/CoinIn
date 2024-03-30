@@ -11,6 +11,7 @@ import Layout from "./Layout/Layout";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+
 // import { Bounce, ToastContainer, toast } from "react-toastify";
 
 function App() {
@@ -33,14 +34,6 @@ function App() {
     //  setIsLoggedIn(true);
     setToast(true);
   };
-
-  // const toasty = () => {
-  //   toast.success("Login successful");
-  // };
-
-  // if (token) {
-  //   sessionStorage.setItem("token", JSON.stringify(token));
-  // }
 
   // function to get the bookmark from database
   const getBookmarkHandler = (bookmarkData) => {

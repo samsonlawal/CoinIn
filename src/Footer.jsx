@@ -16,22 +16,26 @@ function Footer() {
           <p>
             We provide you with up to date crypto data. In addition to tracking
             price, volume and market capitalisation, CoinIn tracks community
-            growth s
+            growth.
           </p>
         </div>
 
-        <div className="comm">
-          <h4>Community</h4>
-          <p>Discord</p>
-          <p>Instagram</p>
-          <p>Reddit</p>
-          <p>X/Twitter</p>
-        </div>
+        <div className="footer-links">
+          <div className="comm">
+            <h4>Community</h4>
+            <p>Discord</p>
+            <p>Instagram</p>
+            <p>Reddit</p>
+            <p>X/Twitter</p>
+          </div>
 
-        <div className="support">
-          <h4>Support</h4>
-          <p>Help Center</p>
-          <p>FAQ</p>
+          <div className="support">
+            <h4>Support</h4>
+            <p>Help Center</p>
+            <p>Privacy Policy</p>
+
+            <p>FAQ</p>
+          </div>
         </div>
       </div>
 

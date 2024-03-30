@@ -8,12 +8,14 @@ import Faq from "./Faq";
 // import Portfolio from "./Portfolio";
 import TopCoins from "./img/TopCoins";
 import Footer from "./Footer";
+import News from "./News";
 
 function Home({ headerTop }) {
   return (
     <>
       <Header />
       <TopCoins headerTop={headerTop} />
+      <News />
       <Faq />
       <Footer />
     </>
