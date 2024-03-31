@@ -25,6 +25,12 @@ function Navbar({ updatePortfolio, token, setToken }) {
     navigate("/login");
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       <nav>
@@ -52,8 +58,22 @@ function Navbar({ updatePortfolio, token, setToken }) {
           {/* <i className="fa-solid fa-user"></i> */}
 
           {token ? (
-            <li className="login" onClick={handleLogout}>
-              Logout
+            <li
+              onClick={toggleDropdown}
+              className={` nav-user dropdown ${isOpen ? "open" : ""}`}
+            >
+              <i className="fa-solid fa-circle-user"></i>
+              <ul className="dropdown-menu">
+                {/* <li>
+                  <p>Sub-Item</p>
+                </li>
+                <li>
+                  <p>Sub-Item</p>
+                </li> */}
+                <li>
+                  <p onClick={handleLogout}>Logout</p>
+                </li>
+              </ul>
             </li>
           ) : (
             <>
