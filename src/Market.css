@@ -1,3 +1,13 @@
+.market-div {
+  width: 1349px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+}
+
 .table-div {
   width: 100%;
   height: fit-content;
@@ -27,6 +37,8 @@
   border-radius: 50px;
   /* background-color: #464362; */
   /* padding: 10px 10px; */
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .linkers {
@@ -267,16 +279,6 @@ td p {
 
 .bouncing-loader > div:nth-child(3) {
   animation-delay: 0.4s;
-}
-
-.market-div {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Montserrat", sans-serif;
 }
 
 .pagination {

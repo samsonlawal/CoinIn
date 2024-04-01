@@ -206,6 +206,17 @@ li {
   font-size: 25px;
 }
 
+@media (max-width: 920px) {
+  .signup {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .links {
+    display: none;
+  }
+}
 /* .signup:hover {
   background-color: #161618;
   border: 1px solid #161618;

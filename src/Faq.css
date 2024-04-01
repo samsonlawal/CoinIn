@@ -95,3 +95,42 @@
   float: right;
   font-size: 15px;
 }
+
+@media (max-width: 850px) {
+  .faq {
+    height: fit-content;
+    /* padding: 150px 50px 50px 50px; */
+    width: 100%;
+  }
+
+  .faq-header {
+    font-family: "Montserrat", sans-serif;
+    color: aliceblue;
+    text-align: center;
+    font-size: 45px;
+    padding: 0px 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  .faq-acc-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 85%;
+    height: fit-content;
+    margin: 5px 2px;
+    background-color: #252336;
+    border-radius: 12px;
+  }
+
+  .faq-header {
+    font-family: "Montserrat", sans-serif;
+    color: aliceblue;
+    text-align: center;
+    font-size: 40px;
+    padding: 0px 50px;
+  }
+}

@@ -84,3 +84,48 @@
   color: #bcbcbc;
   font-size: 20px;
 }
+
+/* .......**********************>>>>>>>>>>> */
+
+@media (max-width: 1165px) {
+  .header-coin-1 {
+    width: 150px;
+    /* background-color: #1e1e20; */
+    /* background: rgba(0, 0, 0, 0.7); */
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-family: "poppins", sans-serif;
+    border-radius: 12px;
+  }
+}
+
+/* .......**********************>>>>>>>>>>> */
+
+@media (max-width: 803px) {
+  .header-coin-1 {
+    width: 150px;
+    /* background-color: #1e1e20; */
+    /* background: rgba(0, 0, 0, 0.7); */
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-family: "poppins", sans-serif;
+    border-radius: 12px;
+  }
+
+  .header-coin-1 .coin-name {
+    height: 100%;
+    color: #aca7cb;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+  }
+
+  .coin-price {
+    color: #bcbcbc;
+    font-size: 17px;
+  }
+}
