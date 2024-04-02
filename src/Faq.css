@@ -133,4 +133,24 @@
     font-size: 40px;
     padding: 0px 50px;
   }
+
+  .accordion {
+    font-size: 15px;
+    background-color: #161618;
+    color: #bcbcbc;
+    cursor: pointer;
+    padding: 18px;
+    height: 70px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+  }
 }
