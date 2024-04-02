@@ -32,9 +32,12 @@ function Navbar({ updatePortfolio, token, setToken }) {
   };
 
   return (
+    // onClick={props.hamburger}
     <>
       <nav>
         <div className="logo-container">
+          <i className="fa-solid fa-bars"></i>
+
           <img className="altLogo" src={altLogo} alt="" />
           <h3 className="logo">
             Coin<span>In</span>
