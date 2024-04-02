@@ -34,10 +34,12 @@ function Navbar({ updatePortfolio, token, setToken }) {
   return (
     <>
       <nav>
-        <img className="altLogo" src={altLogo} alt="" />
-        <h3 className="logo">
-          Coin<span>In</span>
-        </h3>
+        <div className="logo-container">
+          <img className="altLogo" src={altLogo} alt="" />
+          <h3 className="logo">
+            Coin<span>In</span>
+          </h3>
+        </div>
 
         <ul className="links">
           <li>

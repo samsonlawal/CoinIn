@@ -6,6 +6,7 @@
   /* padding: 100px 50px; */
   color: white;
   font-family: "Montserrat", sans-serif;
+  margin-top: 50px;
 }
 
 .news h1 {
@@ -145,7 +146,7 @@
 
 @media (max-width: 500px) {
   .news .card {
-    width: 90%;
+    width: 100%;
     height: auto;
     /* background-color: #313044; */
     display: flex;
