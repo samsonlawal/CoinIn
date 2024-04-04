@@ -13,6 +13,10 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
+// Skeleton
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
   const [bookmarks, setBookmarks] = useState();
   const [bookmarkList, setBookmarkList] = useState([]);
@@ -28,12 +32,11 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
     }
   }, [token, justLoggedIn]);
 
-  // Function to set the flag when login occurs
-  // const handleLogin = () => {
-  // setJustLoggedIn(true);
-  // };
+  const [dataChecker, setDataChecker] = useState(false);
 
-  // toasts && toast.success("Login successful");
+  const updateCheckerState = () => {
+    setDataChecker(true);
+  };
 
   useEffect(() => {
     const fetchId = async () => {
@@ -88,6 +91,7 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
 
         const bookmarkDataArray = await Promise.all(bookmarkDataPromises);
         setBookmarkList(bookmarkDataArray);
+        updateCheckerState();
       } catch (error) {
         console.error("Error fetching data for bookmarks:", error);
       }
@@ -136,7 +140,7 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
     // Simulate a 10-second delay
     const timeoutId = setTimeout(() => {
       setIsLoading(false); // Hide the loading text after 10 seconds
-    }, 10000);
+    }, 3000);
 
     // Cleanup the timeout when the component unmounts or if it gets updated
     return () => clearTimeout(timeoutId);
@@ -147,123 +151,165 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
   }, [bookmarkList]);
 
   return (
-    <>
-      {token ? (
-        <div className="portfolio">
-          <h1 className="portolio_header">My Portfolio</h1>
-          {/* <button onClick={logger}>Log</button> */}
-          <div className="table-div">
-            <table>
-              <thead>
-                <tr>
-                  <th className="save">*</th>
-                  <th className="order">#</th>
-                  <th className="name">Coin</th>
-                  <th className="price">Price</th>
-                  <th className="vol">24h</th>
-                  <th className="cap">Market Cap</th>
-                  <th className="days">7 days</th>
-                </tr>
-              </thead>
-              <tbody>
-                {bookmarkList &&
-                  bookmarkList.map((item) => {
-                    console.log(
-                      item.prices
-                        .map(([_, secondItem]) => secondItem)
-                        .slice(-1)[0] >
-                        item.prices.map(([_, secondItem]) => secondItem)[0]
-                    );
-
-                    const renderChart = (
-                      <Suspense fallback={<div>Loading Chart...</div>}>
-                        <Chart data={item.prices} />
-                      </Suspense>
-                    );
-
-                    console.log(item.prices);
-                    return (
-                      <tr key={item.symbol} id={item.id}>
-                        <td className="saveButton">
-                          <i
-                            className={`fa-star ${
-                              bookmarks &&
-                              bookmarks.some((obj) => obj.coinId === item.id)
-                                ? "fa-solid"
-                                : "fa-regular"
-                            }`}
-                            onClick={() => BookmarkHandler(item.id)}
-                          ></i>
+    <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+      <>
+        {token ? (
+          <div className="portfolio">
+            <h1 className="portolio_header">My Portfolio</h1>
+            {/* <button onClick={logger}>Log</button> */}
+            <div className="table-div">
+              <table>
+                <thead>
+                  <tr>
+                    <th className="save">*</th>
+                    <th className="order">#</th>
+                    <th className="name">Coin</th>
+                    <th className="price">Price</th>
+                    <th className="vol">24h</th>
+                    <th className="cap">Market Cap</th>
+                    <th className="days">7 days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {!dataChecker &&
+                    [...Array(5)].map((_, index) => (
+                      <tr>
+                        <td className="saveButton-skeleton">
+                          {/* <i className={`fa-star`}> */}
+                          <Skeleton />
+                          {/* </i> */}
                         </td>
-                        <td className="orders">
-                          <p>{item.market_cap_rank}</p>
+
+                        <td className="orders-skeleton">
+                          <Skeleton />
                         </td>
-                        <td className="name">
-                          <img src={item.image.small} alt="" />
-                          <p>
-                            {item.name} <span>{item.symbol.toUpperCase()}</span>
-                          </p>
+
+                        <td className="name-skeleton">
+                          <Skeleton />
                         </td>
                         <td className="price">
-                          <p>
-                            $
-                            {item.market_data.current_price.usd.toLocaleString()}
-                          </p>
+                          <Skeleton />
                         </td>
                         <td className="vol">
-                          <p
-                            className={
-                              item.market_data.price_change_percentage_24h >= 0
-                                ? "green"
-                                : "red"
-                            }
-                          >
-                            {item.market_data.price_change_percentage_24h.toFixed(
-                              1
-                            )}
-                            %
-                          </p>
+                          <Skeleton />
                         </td>
                         <td className="cap">
-                          <p>
-                            ${item.market_data.market_cap.usd.toLocaleString()}
-                          </p>
+                          <Skeleton />
                         </td>
                         <td className="days">
-                          {renderChart}
-                          {/* ... */}
+                          <Skeleton />
                         </td>
                       </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+                    ))}
+                  {bookmarkList &&
+                    dataChecker &&
+                    bookmarkList.map((item) => {
+                      console.log(
+                        item.prices
+                          .map(([_, secondItem]) => secondItem)
+                          .slice(-1)[0] >
+                          item.prices.map(([_, secondItem]) => secondItem)[0]
+                      );
+
+                      const renderChart = (
+                        <Suspense fallback={<div>Loading Chart...</div>}>
+                          <Chart data={item.prices} />
+                        </Suspense>
+                      );
+
+                      console.log(item.prices);
+
+                      return (
+                        <tr key={item.symbol} id={item.id}>
+                          <td className="saveButton">
+                            <i
+                              className={`fa-star ${
+                                bookmarks &&
+                                bookmarks.some((obj) => obj.coinId === item.id)
+                                  ? "fa-solid"
+                                  : "fa-regular"
+                              }`}
+                              onClick={() => BookmarkHandler(item.id)}
+                            ></i>
+                          </td>
+                          <td className="orders">
+                            <p>{item.market_cap_rank}</p>
+                          </td>
+                          <td className="name">
+                            <img src={item.image.small} alt="" />
+                            <p>
+                              {item.name}{" "}
+                              <span>{item.symbol.toUpperCase()}</span>
+                            </p>
+                          </td>
+                          <td className="price">
+                            <p>
+                              $
+                              {item.market_data.current_price.usd.toLocaleString()}
+                            </p>
+                          </td>
+                          <td className="vol">
+                            <p
+                              className={
+                                item.market_data.price_change_percentage_24h >=
+                                0
+                                  ? "green"
+                                  : "red"
+                              }
+                            >
+                              {item.market_data.price_change_percentage_24h.toFixed(
+                                1
+                              )}
+                              %
+                            </p>
+                          </td>
+                          <td className="cap">
+                            <p>
+                              $
+                              {item.market_data.market_cap.usd.toLocaleString()}
+                            </p>
+                          </td>
+                          <td className="days">
+                            {isLoading ? (
+                              <p>
+                                <Skeleton />
+                              </p>
+                            ) : (
+                              renderChart
+                            )}{" "}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="logger-div">
-          <h1 className="logger">
-            Login to show your portfolio,{" "}
-            <span>
-              <NavLink to="/login">here</NavLink>
-            </span>
-          </h1>
-        </div>
-      )}
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        // pauseOnFocusLoss
-        draggable
-        // pauseOnHover
-        theme="dark"
-        // transition:Bounce
-      />
-    </>
+        ) : (
+          <div className="logger-div">
+            <h1 className="logger">
+              Login to show your portfolio,{" "}
+              <span>
+                <NavLink to="/login">here</NavLink>
+              </span>
+            </h1>
+          </div>
+        )}
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          // pauseOnFocusLoss
+          draggable
+          // pauseOnHover
+          theme="dark"
+          // transition:Bounce
+        />
+      </>
+    </SkeletonTheme>
   );
 }
 

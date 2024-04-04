@@ -1,5 +1,6 @@
 .market-div {
-  width: 1349px;
+  width: 100%;
+  /* max-width: 1300px; */
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -7,17 +8,21 @@
   align-items: center;
   font-family: "Montserrat", sans-serif;
 }
+/* .table-container {
+  overflow-x: auto;
+} */
 
 .table-div {
   width: 100%;
   height: fit-content;
-  padding: 0px 20px;
+  padding: 0px 0px;
   color: white;
   font-family: "Montserrat", sans-serif;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   flex-direction: column;
+  overflow-x: auto;
 }
 
 .market_header {
@@ -37,8 +42,6 @@
   border-radius: 50px;
   /* background-color: #464362; */
   /* padding: 10px 10px; */
-  overflow-x: auto;
-  white-space: nowrap;
 }
 
 .linkers {
@@ -76,7 +79,8 @@
 } */
 
 .table-shelf {
-  width: 100%;
+  /* width: 100%; */
+  width: 1300px;
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -266,21 +270,6 @@ td p {
   animation: bouncing-loader 0.6s infinite alternate;
 }
 
-@keyframes bouncing-loader {
-  to {
-    opacity: 0.1;
-    transform: translateY(-16px);
-  }
-}
-
-.bouncing-loader > div:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.bouncing-loader > div:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
 .pagination {
   margin: 50px 0px;
   width: fit-content;
@@ -320,4 +309,187 @@ td p {
 
 .notPage {
   background-color: #464362;
+}
+
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #464362; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fff; /* Thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #fff; /* Thumb color on hover */
+}
+
+@media (max-width: 1317px) {
+  .table-div {
+    width: 100%;
+    height: fit-content;
+    padding: 0px 0px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .market_header {
+    color: white;
+    font-size: 35px;
+    font-family: "Montserrat", sans-serif;
+    padding: 30px 30px;
+  }
+
+  .top-shelf {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border: 0.5px solid #464362;
+    border-radius: 50px;
+    /* background-color: #464362; */
+    /* padding: 10px 10px; */
+  }
+
+  .top-shelf button {
+    padding: 10px 15px;
+    /* height: ; */
+    margin: 0px 20px;
+    background: none;
+    color: #fff;
+    border: none;
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 30px;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .linkers {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    flex-direction: row;
+    /* width: 100%; */
+    margin: 50px 30px;
+  }
+
+  .linkName {
+    padding: 0px 50px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 500px) {
+  .table-shelf {
+    /* width: 100%; */
+    width: 900px;
+
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px;
+    background: #141414;
+  }
+  .save {
+    width: fit-content;
+    padding: 30px 0px 30px 25px;
+  }
+
+  .saveButton {
+    width: 5%;
+    padding: 30px 30px 30px 25px;
+  }
+
+  .order {
+    width: 2%;
+    padding: 30px 0px 30px 0px;
+  }
+
+  .orders {
+    padding: 30px 0px 30px 0px;
+  }
+
+  .name {
+    width: 300px;
+    /* height: 100%; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 30px 0px 30px 20px;
+  }
+
+  .price {
+    width: 13%;
+    padding: 30px 0px;
+  }
+
+  .cap {
+    width: 20%;
+    padding: 30px 0px;
+  }
+
+  .vol {
+    width: 10%;
+    padding: 30px 0px;
+  }
+
+  .days {
+    width: 20%;
+    padding: 0px 0px;
+    max-height: 100px;
+  }
+
+  .name img {
+    width: 20px;
+    padding-right: 5px;
+  }
+
+  td {
+    font-size: 12px;
+  }
+
+  .top-shelf button {
+    padding: 10px 15px;
+    /* height: ; */
+    margin: 0px 0px;
+    background: none;
+    color: #fff;
+    border: none;
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 30px;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .market_header {
+    color: white;
+    font-size: 40px;
+    font-family: "Montserrat", sans-serif;
+    padding: 30px 10px;
+  }
+
+  .linkers {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    flex-direction: row;
+    /* width: 100%; */
+    margin: 30px 10px;
+  }
 }
