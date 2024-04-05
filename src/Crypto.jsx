@@ -365,8 +365,8 @@ function Crypto({
     );
   }
 
-  function clickHandler(key) {
-    console.log(key);
+  function clickHandler(id) {
+    console.log(id);
   }
 
   // console.log(market);
@@ -399,7 +399,13 @@ function Crypto({
       );
 
       return (
-        <tr key={item.symbol} id={item.id} onClick={clickHandler(item.id)}>
+        <tr
+          key={item.symbol}
+          id={item.id}
+          onClick={() => {
+            clickHandler(item.id);
+          }}
+        >
           <td className="saveButton">
             <i
               className={`fa-star ${

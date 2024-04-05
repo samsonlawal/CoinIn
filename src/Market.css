@@ -133,6 +133,11 @@ td p {
   font-size: 15px;
 }
 
+tbody tr:hover {
+  background-color: #222129;
+  cursor: pointer;
+}
+
 .save {
   width: fit-content;
   padding: 30px 0px 30px 50px;
