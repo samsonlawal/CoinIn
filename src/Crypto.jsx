@@ -268,34 +268,7 @@ function Crypto({
         // Set the 'coin' state
         setCoin(data);
         // setDataChecker(false);
-
-        // Slice the data and set the 'market' state based on the fetched data
       });
-
-    // *************FETCH GAINERS AND LOSERS*************
-    // fetch(topGainers)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // Handle the data returned by the API
-
-    //     // Sort coins by percentage change
-    //     const sortedCoins = data.sort(
-    //       (a, b) =>
-    //         b.price_change_percentage_24h - a.price_change_percentage_24h
-    //     );
-
-    //     // Get top gainers and losers
-    //     const topGainers = sortedCoins.slice(0, 10);
-    //     const topLosers = sortedCoins.slice(-10).reverse();
-
-    //     setTop({
-    //       ...top,
-    //       Gainers: topGainers,
-    //       Losers: topLosers,
-    //     });
-    //     // updateData(data.slice(0, 50));
-    //   });
-    // console.log(coin);
   }, []);
 
   // Timer delay for the line graph
@@ -392,6 +365,10 @@ function Crypto({
     );
   }
 
+  function clickHandler(key) {
+    console.log(key);
+  }
+
   // console.log(market);
 
   const marketData =
@@ -422,7 +399,7 @@ function Crypto({
       );
 
       return (
-        <tr key={item.symbol} id={item.id}>
+        <tr key={item.symbol} id={item.id} onClick={clickHandler(item.id)}>
           <td className="saveButton">
             <i
               className={`fa-star ${

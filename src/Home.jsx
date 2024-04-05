@@ -12,12 +12,12 @@ import CoinData from "./CoinData";
 function Home({ headerTop }) {
   return (
     <>
-      {/* <Header />
+      <Header />
       <TopCoins headerTop={headerTop} />
       <News />
       <Faq />
-      <Footer /> */}
-      <CoinData />
+      <Footer />
+      {/* <CoinData /> */}
     </>
   );
 }
