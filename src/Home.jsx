@@ -7,15 +7,17 @@ import Faq from "./Faq";
 import TopCoins from "./img/TopCoins";
 import Footer from "./Footer";
 import News from "./News";
+import CoinData from "./CoinData";
 
 function Home({ headerTop }) {
   return (
     <>
-      <Header />
+      {/* <Header />
       <TopCoins headerTop={headerTop} />
       <News />
       <Faq />
-      <Footer />
+      <Footer /> */}
+      <CoinData />
     </>
   );
 }

@@ -1,0 +1,154 @@
+.coinContainer {
+  background-color: #141414;
+  width: 100%;
+  padding: 0px 0px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: row;
+}
+
+.coin-data {
+  padding: 2px 30px;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  width: 32%;
+  height: fit-content;
+  background-color: #121212;
+}
+
+.coin-data .name-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: fit-content;
+  gap: 5px;
+}
+
+.name-div img {
+  width: 25px;
+}
+
+.coin-data .name-div h1 {
+  color: white;
+}
+
+.coin-data .name-div-id {
+  color: #aca7cb;
+}
+
+.coin-data .name-div-rank {
+  background-color: #313044;
+  color: #aca7cb;
+  padding: 2px 3px;
+  border-radius: 4px;
+}
+
+.coin-data .price-div {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  margin: 5px 0px 15px 0px;
+  gap: 5px;
+
+  /* background-color: greenyellow; */
+}
+
+.data-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+  /* padding: 10px 0px; */
+  margin: 10px 0px;
+  /* border-bottom: 1px solid #bcbcbc; */
+}
+
+.data-div-cap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  padding: 11px 0px;
+  /* margin: 0px 0px 7px 0px; */
+  border-bottom: 1px solid #222129;
+}
+
+.data-div-cap p.text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #aca7cb;
+}
+
+.data-div-cap p.text i {
+  /* font-size: 14px; */
+  color: #313044;
+  padding: 0px 10px;
+}
+
+.data-div-cap p.text i:hover {
+  color: #aca7cb;
+}
+
+.data-div-cap p {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(224, 224, 224);
+}
+
+.data-link-div h3 {
+  padding: 0px 0px px 0px;
+  color: white;
+}
+
+.data-link-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px 0px;
+  margin: 20px 0px;
+}
+
+.data-link-div div {
+  padding: 5px 0px;
+}
+
+.data-link-div .link {
+  background-color: #313044;
+  padding: 7px 7px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.data-link-div .comms {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.data-link-div .comms .link {
+  font-size: 13px;
+  display: flex;
+  flex-direction: row;
+}
+
+.data-link-div .link:hover {
+  background-color: #464362;
+}
+
+.chart {
+  width: 68%;
+  /* background-color: white; */
+  height: 500px;
+  display: flex;
+  justify-content: center;
+}
+.innerChart {
+  width: 95%;
+}
