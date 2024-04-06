@@ -8,6 +8,8 @@ import supabase from "./config/supabaseClient";
 import Crypto from "./Crypto";
 import Gainers from "./Gainers";
 
+import CoinData from "./CoinData";
+
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,6 +27,8 @@ function Market({ getBookmarkHandler, token }) {
   const [loading, setLoading] = useState(true);
 
   const [dataChecker, setDataChecker] = useState(false);
+
+  const [clicked, setClicked] = useState();
 
   const updateCheckerState = () => {
     setDataChecker(true);
@@ -100,62 +104,69 @@ function Market({ getBookmarkHandler, token }) {
 
   return (
     <>
-      <h1 className="market_header">Market</h1>
-
-      <div className="linkers">
-        <div className="top-shelf">
-          <button
-            onClick={HandleMarket}
-            className={link.coin ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Cryptocurrencies
-          </button>
-          <button
-            onClick={HandleGainer}
-            className={link.gainer ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Top Gainers
-          </button>
-          <button
-            onClick={HandleLoser}
-            className={link.loser ? trueStyle : falseStyle}
-            // className={link.coin ? "active" : ""}
-          >
-            Top Losers
-          </button>
-        </div>
-      </div>
-      {/* {!loading && ( */}
-      {/* <> */}
-      {link.coin ? (
-        <Crypto
-          getBookmarkHandler={getBookmarkHandler}
-          token={token}
-          updateCheckerState={updateCheckerState}
-          dataChecker={dataChecker}
-          setDataChecker={setDataChecker}
-        />
-      ) : link.gainer ? (
-        <Gainers
-          getBookmarkHandler={getBookmarkHandler}
-          token={token}
-          updateCheckerState={updateCheckerState}
-          dataChecker={dataChecker}
-          setDataChecker={setDataChecker}
-        />
-      ) : (
-        <Losers
-          getBookmarkHandler={getBookmarkHandler}
-          token={token}
-          updateCheckerState={updateCheckerState}
-          dataChecker={dataChecker}
-          setDataChecker={setDataChecker}
-        />
+      {clicked && <CoinData clicked={clicked} />}
+      {!clicked && (
+        <>
+          <h1 className="market_header">Market</h1>
+          <div className="linkers">
+            <div className="top-shelf">
+              <button
+                onClick={HandleMarket}
+                className={link.coin ? trueStyle : falseStyle}
+                // className={link.coin ? "active" : ""}
+              >
+                Cryptocurrencies
+              </button>
+              <button
+                onClick={HandleGainer}
+                className={link.gainer ? trueStyle : falseStyle}
+                // className={link.coin ? "active" : ""}
+              >
+                Top Gainers
+              </button>
+              <button
+                onClick={HandleLoser}
+                className={link.loser ? trueStyle : falseStyle}
+                // className={link.coin ? "active" : ""}
+              >
+                Top Losers
+              </button>
+            </div>
+          </div>
+          {/* {!loading && ( */}
+          {/* <> */}
+          {link.coin ? (
+            <Crypto
+              getBookmarkHandler={getBookmarkHandler}
+              token={token}
+              updateCheckerState={updateCheckerState}
+              dataChecker={dataChecker}
+              setDataChecker={setDataChecker}
+              setClicked={setClicked}
+            />
+          ) : link.gainer ? (
+            <Gainers
+              getBookmarkHandler={getBookmarkHandler}
+              token={token}
+              updateCheckerState={updateCheckerState}
+              dataChecker={dataChecker}
+              setDataChecker={setDataChecker}
+              setClicked={setClicked}
+            />
+          ) : (
+            <Losers
+              getBookmarkHandler={getBookmarkHandler}
+              token={token}
+              updateCheckerState={updateCheckerState}
+              dataChecker={dataChecker}
+              setDataChecker={setDataChecker}
+              setClicked={setClicked}
+            />
+          )}
+          {/* </> */}
+          {/* )} */}
+        </>
       )}
-      {/* </> */}
-      {/* )} */}
     </>
   );
 }

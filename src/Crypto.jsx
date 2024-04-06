@@ -5,6 +5,8 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import supabase from "./config/supabaseClient";
 
+import { NavLink } from "react-router-dom";
+
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +23,7 @@ function Crypto({
   updateCheckerState,
   dataChecker,
   setDataChecker,
+  setClicked,
 }) {
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
@@ -45,6 +48,8 @@ function Crypto({
     Losers: [],
     // Trending: [],
   });
+
+  // const history = useHistory();
 
   // State for switching market data
   //   const [link, setLink] = useState({
@@ -366,7 +371,11 @@ function Crypto({
   }
 
   function clickHandler(id) {
-    console.log(id);
+    // console.log(id);
+    setClicked(id);
+    window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+
+    // history.push(`/coin/${id}`); // Navigate to CoinDetails page with the id parameter
   }
 
   // console.log(market);
@@ -478,7 +487,7 @@ function Crypto({
                 {/* {console.log(dataChecker)} */}
                 {!dataChecker
                   ? [...Array(5)].map((_, index) => (
-                      <tr>
+                      <tr key={index}>
                         <td className="saveButton-skeleton">
                           {/* <i className={`fa-star`}> */}
                           <Skeleton />

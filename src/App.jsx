@@ -11,6 +11,7 @@ import Layout from "./Layout/Layout";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import CoinData from "./CoinData";
 
 // import { Bounce, ToastContainer, toast } from "react-toastify";
 
@@ -96,6 +97,7 @@ function App() {
               // updateData={updateData}
               getBookmarkHandler={getBookmarkHandler}
               token={token}
+              // setClicked={setClicked}
             />
           ),
         },
@@ -129,6 +131,8 @@ function App() {
           path: "signup",
           element: <SignupForm />,
         },
+
+        // { path: "coinDetails", element: <CoinData clicked={clicked} /> },
       ],
     },
   ];

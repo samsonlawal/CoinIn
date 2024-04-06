@@ -1,7 +1,7 @@
 .coinContainer {
   background-color: #141414;
   width: 100%;
-  padding: 0px 0px 0px;
+  padding: 0px 0px;
   display: flex;
   justify-content: space-between;
   align-items: start;
@@ -9,7 +9,7 @@
 }
 
 .coin-data {
-  padding: 2px 30px;
+  padding: 20px 30px 0px 30px;
   font-family: "Montserrat", sans-serif;
   color: white;
   width: 32%;
@@ -32,6 +32,7 @@
 
 .coin-data .name-div h1 {
   color: white;
+  padding: 0px 0px 20px 0px;
 }
 
 .coin-data .name-div-id {
@@ -50,7 +51,7 @@
   align-items: center;
   flex-direction: row;
   width: 100%;
-  margin: 5px 0px 15px 0px;
+  margin: 5px 0px 25px 0px;
   gap: 5px;
 
   /* background-color: greenyellow; */
@@ -73,7 +74,7 @@
   align-items: center;
   flex-direction: row;
   width: 100%;
-  padding: 11px 0px;
+  padding: 15px 0px;
   /* margin: 0px 0px 7px 0px; */
   border-bottom: 1px solid #222129;
 }
@@ -82,6 +83,11 @@
   font-size: 15px;
   font-weight: 500;
   color: #aca7cb;
+}
+
+.data-div-cap p a {
+  color: rgb(224, 224, 224);
+  text-decoration: none;
 }
 
 .data-div-cap p.text i {
@@ -101,7 +107,7 @@
 }
 
 .data-link-div h3 {
-  padding: 0px 0px px 0px;
+  padding: 10px 0px 0px 0px;
   color: white;
 }
 
