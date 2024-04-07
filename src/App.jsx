@@ -13,6 +13,8 @@ import SignupForm from "./SignupForm";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import CoinData from "./CoinData";
 
+import { DataProvider } from "./DataContext";
+
 // import { Bounce, ToastContainer, toast } from "react-toastify";
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
   const [toasts, setToast] = useState(false);
 
   const [justLoggedIn, setJustLoggedIn] = useState(false);
+
+  const [clicked, setClicked] = useState();
 
   const handleLogin = () => {
     setJustLoggedIn(true);
@@ -97,7 +101,8 @@ function App() {
               // updateData={updateData}
               getBookmarkHandler={getBookmarkHandler}
               token={token}
-              // setClicked={setClicked}
+              setClicked={setClicked}
+              clicked={clicked}
             />
           ),
         },
@@ -132,6 +137,11 @@ function App() {
           element: <SignupForm />,
         },
 
+        {
+          path: "coin/:id",
+          element: <CoinData clicked={clicked} />,
+        },
+
         // { path: "coinDetails", element: <CoinData clicked={clicked} /> },
       ],
     },
@@ -148,7 +158,9 @@ function App() {
       {/* <Faq /> */}
 
       {/* <Portfolio bookmarks={bookmarks} /> */}
+      {/* <DataProvider> */}
       <RouterProvider router={router} />
+      {/* </DataProvider> */}
     </>
   );
 }

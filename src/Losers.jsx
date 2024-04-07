@@ -1,9 +1,9 @@
 import { React, useState, useEffect, Suspense } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
-import Header from "./Header";
-import Navbar from "./Navbar";
 import supabase from "./config/supabaseClient";
+
+import { useNavigate } from "react-router-dom";
 
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -21,6 +21,8 @@ function Losers({
   updateCheckerState,
   dataChecker,
   setDataChecker,
+  setClicked,
+  clicked,
 }) {
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
@@ -37,6 +39,8 @@ function Losers({
   const [pageNo, setPageNo] = useState(1);
 
   const [ApiChecker, setApiChecker] = useState(true);
+
+  const navigate = useNavigate();
 
   // Top gainer and losers state
   const [top, setTop] = useState({
@@ -292,6 +296,17 @@ function Losers({
     return () => clearTimeout(timeoutId);
   }, [isLoading]);
 
+  function clickHandler(id) {
+    console.log(id);
+    setClicked(id);
+    // window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+    // setCoinData(id);
+
+    if (clicked) {
+      navigate(`/coin/${id}`);
+    }
+  }
+
   const marketData =
     top.Losers &&
     top.Losers.map((item) => {
@@ -320,7 +335,13 @@ function Losers({
       );
 
       return (
-        <tr key={item.symbol} id={item.id}>
+        <tr
+          key={item.symbol}
+          id={item.id}
+          onClick={() => {
+            clickHandler(item.id);
+          }}
+        >
           <td className="saveButton">
             <i
               className={`fa-star ${

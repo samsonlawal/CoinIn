@@ -1,11 +1,9 @@
 import { React, useState, useEffect, Suspense } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
-import Header from "./Header";
-import Navbar from "./Navbar";
 import supabase from "./config/supabaseClient";
 
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -24,6 +22,7 @@ function Crypto({
   dataChecker,
   setDataChecker,
   setClicked,
+  clicked,
 }) {
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
@@ -40,6 +39,11 @@ function Crypto({
   const [pageNo, setPageNo] = useState(1);
 
   const [ApiChecker, setApiChecker] = useState(true);
+
+  const navigate = useNavigate();
+
+  // context for coin data
+  // const { setCoinData } = useData(); // Access setCoinData from DataContext
 
   // Top gainer and losers state
   const [top, setTop] = useState({
@@ -371,11 +375,14 @@ function Crypto({
   }
 
   function clickHandler(id) {
-    // console.log(id);
+    console.log(id);
     setClicked(id);
-    window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+    // window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+    // setCoinData(id);
 
-    // history.push(`/coin/${id}`); // Navigate to CoinDetails page with the id parameter
+    if (clicked) {
+      navigate(`/coin/${id}`);
+    }
   }
 
   // console.log(market);

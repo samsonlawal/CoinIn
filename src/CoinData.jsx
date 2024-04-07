@@ -4,13 +4,17 @@ import btc from "./img/btclogo.webp";
 import Charts from "react-apexcharts";
 import Footer from "./Footer";
 
+import { useData } from "./DataContext";
+
 // Skeleton
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 function CoinData({ clicked }) {
-  // const coinData;
+  // const { coinData } = useData() ?? {};
+  // const { coinData } = useData() ?? {};
 
+  // const coinData;
   const [theData, setTheData] = useState();
   const [chartData, setChartData] = useState([]);
 
@@ -33,8 +37,7 @@ function CoinData({ clicked }) {
         setChartData(data.prices);
       });
 
-    // // Merge additional data and market chart data with the existing bookmark data
-    // setTheData({ ...coinDataW, ...marketChartData });
+    console.log(clicked);
   }, []);
 
   useEffect(() => {
@@ -106,7 +109,7 @@ function CoinData({ clicked }) {
     stroke: {
       curve: "straight",
       width: 2,
-      colors: [],
+      colors: ["#32CA5B"],
     },
     xaxis: {
       type: "datetime",
@@ -128,7 +131,7 @@ function CoinData({ clicked }) {
         opacityFrom: 0.7,
         opacityTo: 0.2,
       },
-      colors: [],
+      colors: ["#32CA5B"],
     },
 
     yaxis: {
@@ -307,7 +310,6 @@ function CoinData({ clicked }) {
               {/* Chart */}
               <div className="chart">
                 <div className="innerChart">
-                  {!chartData && <p>Loading...</p>}
                   {chartData && (
                     // <p>Loaded</p>
                     <Charts

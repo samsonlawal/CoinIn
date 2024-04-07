@@ -5,6 +5,8 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import supabase from "./config/supabaseClient";
 
+import { useNavigate } from "react-router-dom";
+
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +23,8 @@ function Gainers({
   updateCheckerState,
   dataChecker,
   setDataChecker,
+  clicked,
+  setClicked,
 }) {
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
@@ -37,6 +41,8 @@ function Gainers({
   const [pageNo, setPageNo] = useState(1);
 
   const [ApiChecker, setApiChecker] = useState(true);
+
+  const navigate = useNavigate();
 
   // Top gainer and losers state
   const [top, setTop] = useState({
@@ -293,6 +299,17 @@ function Gainers({
     return () => clearTimeout(timeoutId);
   }, [isLoading]);
 
+  function clickHandler(id) {
+    console.log(id);
+    setClicked(id);
+    // window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+    // setCoinData(id);
+
+    if (clicked) {
+      navigate(`/coin/${id}`);
+    }
+  }
+
   const marketData =
     top.Gainers &&
     top.Gainers.map((item) => {
@@ -321,7 +338,13 @@ function Gainers({
       );
 
       return (
-        <tr key={item.symbol} id={item.id}>
+        <tr
+          key={item.symbol}
+          id={item.id}
+          onClick={() => {
+            clickHandler(item.id);
+          }}
+        >
           <td className="saveButton">
             <i
               className={`fa-star ${
