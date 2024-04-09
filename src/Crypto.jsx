@@ -377,7 +377,7 @@ function Crypto({
   function clickHandler(id) {
     console.log(id);
     setClicked(id);
-    // window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+    window.scrollTo(0, 0); // Scrolls to the top left corner of the page
     // setCoinData(id);
 
     if (clicked) {

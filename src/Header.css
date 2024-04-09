@@ -239,7 +239,7 @@ div.header {
   }
 
   .header-text {
-    width: 85%;
+    width: 63%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -294,6 +294,20 @@ div.header {
 }
 
 /* .......**********************>>>>>>>>>>> */
+
+@media (max-width: 650px) {
+  .header-text {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 9px;
+    /* background-color: #464362; */
+  }
+}
 
 @media (max-width: 500px) {
   div.header {
