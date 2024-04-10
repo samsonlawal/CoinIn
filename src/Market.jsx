@@ -10,9 +10,6 @@ import Gainers from "./Gainers";
 
 import CoinData from "./CoinData";
 
-import { DataProvider } from "./DataContext";
-import { useData } from "./DataContext";
-
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

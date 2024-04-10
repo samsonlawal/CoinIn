@@ -1,15 +1,16 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
 const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
-  const [coinData, setCoinData] = useState([]);
+const DataProvider = ({ children }) => {
+  // const [coinData, setCoinData] = useState([]);
+  const [clicked, setClicked] = useState();
 
   return (
-    <DataContext.Provider value={{ coinData, setCoinData }}>
+    <DataContext.Provider value={{ clicked, setClicked }}>
       {children}
     </DataContext.Provider>
   );
 };
 
-export const useData = () => useContext(DataContext);
+export { DataContext, DataProvider };

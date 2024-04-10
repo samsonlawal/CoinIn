@@ -8,6 +8,8 @@ import LoginForm from "./LoginForm";
 import { NavLink } from "react-router-dom";
 import Chart from "./Chart";
 
+import { useNavigate } from "react-router-dom";
+
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,10 +19,18 @@ import "react-toastify/dist/ReactToastify.min.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
+export default function Portfolio({
+  token,
+  justLoggedIn,
+  setJustLoggedIn,
+  clicked,
+  setClicked,
+}) {
   const [bookmarks, setBookmarks] = useState();
   const [bookmarkList, setBookmarkList] = useState([]);
   const [fetchError, setFetchError] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check if there's a token and login just occurred
@@ -150,6 +160,17 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
     // console.log(bookmarks);
   }, [bookmarkList]);
 
+  function clickHandler(id) {
+    console.log(id);
+    setClicked(id);
+    window.scrollTo(0, 0); // Scrolls to the top left corner of the page
+    // setCoinData(id);
+
+    if (clicked) {
+      navigate(`/coin/${id}`);
+    }
+  }
+
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <>
@@ -220,7 +241,13 @@ export default function Portfolio({ token, justLoggedIn, setJustLoggedIn }) {
                       console.log(item.prices);
 
                       return (
-                        <tr key={item.symbol} id={item.id}>
+                        <tr
+                          key={item.symbol}
+                          id={item.id}
+                          onClick={() => {
+                            clickHandler(item.id);
+                          }}
+                        >
                           <td className="saveButton">
                             <i
                               className={`fa-star ${

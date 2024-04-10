@@ -117,6 +117,8 @@ function App() {
               // setStatus={setStatus}
               justLoggedIn={justLoggedIn}
               setJustLoggedIn={setJustLoggedIn}
+              setClicked={setClicked}
+              clicked={clicked}
             />
           ),
         },

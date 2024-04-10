@@ -4,7 +4,7 @@ import btc from "./img/btclogo.webp";
 import Charts from "react-apexcharts";
 import Footer from "./Footer";
 
-import { useData } from "./DataContext";
+// import { useData } from "./DataContext";
 
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
@@ -288,7 +288,10 @@ function CoinData({ clicked }) {
 
                 <div className="price-div">
                   <h1 className="price-div-price">
-                    ${theData.market_data.current_price.usd.toLocaleString()}
+                    $
+                    {Math.abs(theData.market_data.current_price.usd) < 1
+                      ? theData.market_data.current_price.usd
+                      : theData.market_data.current_price.usd.toLocaleString()}
                   </h1>
                   <p
                     className={`price-div-percentage
@@ -311,10 +314,13 @@ function CoinData({ clicked }) {
                       <i
                         class="fa-solid fa-circle-exclamation"
                         data-tooltip-id="my-tooltip"
-                        data-tooltip-content="Hello world!"
+                        data-tooltip-content="Current Price x Circulating Supply
+"
                         data-tooltip-place="top"
                       ></i>
                     </p>
+                    <Tooltip id="my-tooltip" />
+
                     <p className="num">
                       $
                       {theData.market_data.fully_diluted_valuation.usd.toLocaleString()}
@@ -327,7 +333,7 @@ function CoinData({ clicked }) {
                       <i
                         class="fa-solid fa-circle-exclamation"
                         data-tooltip-id="my-tooltip"
-                        data-tooltip-content="Hello world!"
+                        data-tooltip-content="Current Price x Total Supply"
                         data-tooltip-place="top"
                       ></i>
                     </p>
@@ -337,30 +343,14 @@ function CoinData({ clicked }) {
                   </div>
 
                   <div className="data-div-cap">
-                    <p className="text">
-                      All Time High{" "}
-                      <i
-                        class="fa-solid fa-circle-exclamation"
-                        data-tooltip-id="my-tooltip"
-                        data-tooltip-content="Hello world!"
-                        data-tooltip-place="top"
-                      ></i>
-                    </p>
+                    <p className="text">All Time High</p>
                     <p className="num">
                       ${theData.market_data.ath.usd.toLocaleString()}
                     </p>
                   </div>
 
                   <div className="data-div-cap">
-                    <p className="text">
-                      All Time Low
-                      <i
-                        class="fa-solid fa-circle-exclamation"
-                        data-tooltip-id="my-tooltip"
-                        data-tooltip-content="Hello world!"
-                        data-tooltip-place="top"
-                      ></i>
-                    </p>
+                    <p className="text">All Time Low</p>
                     <p className="num">
                       ${theData.market_data.atl.usd.toLocaleString()}
                     </p>
