@@ -1,31 +1,28 @@
-import { React, useState, useEffect, Suspense } from "react";
+import { React, useState, useEffect } from "react";
 import "./Market.css";
 import Charts from "react-apexcharts";
-import Header from "./Header";
-import Navbar from "./Navbar";
 import supabase from "./config/supabaseClient";
 
 import { useNavigate } from "react-router-dom";
 
+// Context
+import { useContext } from "react";
+import { DataContext } from "./DataContext";
+
 // Toasts
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import { ChevronLeft, ChevronRight } from "react-feather";
 
 // Skeleton
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-function Gainers({
-  getBookmarkHandler,
-  token,
-  updateCheckerState,
-  dataChecker,
-  setDataChecker,
-  clicked,
-  setClicked,
-}) {
+function Gainers({ updateCheckerState, dataChecker }) {
+  // Context
+  const { clicked, setClicked, getBookmarkHandler, token } =
+    useContext(DataContext);
+
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
   const [fetchError, setFetchError] = useState(null);
@@ -416,7 +413,7 @@ function Gainers({
               <tbody>
                 {!dataChecker
                   ? [...Array(5)].map((_, index) => (
-                      <tr>
+                      <tr key={index}>
                         <td className="saveButton-skeleton">
                           {/* <i className={`fa-star`}> */}
                           <Skeleton />

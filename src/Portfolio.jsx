@@ -10,6 +10,10 @@ import Chart from "./Chart";
 
 import { useNavigate } from "react-router-dom";
 
+// Context
+import { useContext } from "react";
+import { DataContext } from "./DataContext";
+
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,12 +24,15 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Portfolio({
-  token,
+  // token,
   justLoggedIn,
   setJustLoggedIn,
-  clicked,
-  setClicked,
+  // clicked,
+  // setClicked,
 }) {
+  // Context
+  const { clicked, setClicked, token } = useContext(DataContext);
+
   const [bookmarks, setBookmarks] = useState();
   const [bookmarkList, setBookmarkList] = useState([]);
   const [fetchError, setFetchError] = useState(null);
@@ -194,7 +201,7 @@ export default function Portfolio({
                 <tbody>
                   {!dataChecker &&
                     [...Array(5)].map((_, index) => (
-                      <tr>
+                      <tr key={index}>
                         <td className="saveButton-skeleton">
                           {/* <i className={`fa-star`}> */}
                           <Skeleton />
@@ -225,20 +232,11 @@ export default function Portfolio({
                   {bookmarkList &&
                     dataChecker &&
                     bookmarkList.map((item) => {
-                      console.log(
-                        item.prices
-                          .map(([_, secondItem]) => secondItem)
-                          .slice(-1)[0] >
-                          item.prices.map(([_, secondItem]) => secondItem)[0]
-                      );
-
                       const renderChart = (
                         <Suspense fallback={<div>Loading Chart...</div>}>
                           <Chart data={item.prices} />
                         </Suspense>
                       );
-
-                      console.log(item.prices);
 
                       return (
                         <tr

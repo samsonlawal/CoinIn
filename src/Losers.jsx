@@ -5,6 +5,10 @@ import supabase from "./config/supabaseClient";
 
 import { useNavigate } from "react-router-dom";
 
+// Context
+import { useContext } from "react";
+import { DataContext } from "./DataContext";
+
 // Toasts
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,15 +19,11 @@ import { ChevronLeft, ChevronRight } from "react-feather";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-function Losers({
-  getBookmarkHandler,
-  token,
-  updateCheckerState,
-  dataChecker,
-  setDataChecker,
-  setClicked,
-  clicked,
-}) {
+function Losers({ updateCheckerState, dataChecker }) {
+  // Context
+  const { clicked, setClicked, getBookmarkHandler, token } =
+    useContext(DataContext);
+
   // State that gets the datas from the database
   const [bookmarks, setBookmarks] = useState(null);
   const [fetchError, setFetchError] = useState(null);

@@ -291,6 +291,17 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.converterContainer {
+  width: 100%;
+  padding: 10px 0px;
+}
+
+.converterHeader {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  padding: 0px 0px 0px 40px;
+}
+
 .converter .inputt .sym {
   width: 25%;
   height: 100%;
@@ -458,6 +469,11 @@
 
   .coinContainer-mobile .innerChart {
     width: 100%;
+  }
+  .converterHeader {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    padding: 0px 0px 0px 30px;
   }
 }
 

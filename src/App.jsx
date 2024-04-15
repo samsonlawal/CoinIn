@@ -13,14 +13,12 @@ import SignupForm from "./SignupForm";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import CoinData from "./CoinData";
 
-import { DataProvider } from "./DataContext";
+import { DataContext } from "./DataContext";
 
 // import { Bounce, ToastContainer, toast } from "react-toastify";
 
 function App() {
   const [headerTop, setHeaderTop] = useState();
-  const [portfolio, setPortfolio] = useState(false);
-  const [home, setHome] = useState(true);
   const [bookmarks, setBookmarks] = useState([]);
 
   const [token, setToken] = useState();
@@ -36,9 +34,10 @@ function App() {
 
   const handleToast = () => {
     // Logic for successful login
-    //  setIsLoggedIn(true);
     setToast(true);
   };
+
+  // const val = "";
 
   // function to get the bookmark from database
   const getBookmarkHandler = (bookmarkData) => {
@@ -49,18 +48,13 @@ function App() {
     if (sessionStorage.getItem("token")) {
       let data = JSON.parse(sessionStorage.getItem("token"));
       setToken(data);
-      console.log(token);
+      // console.log(token);
     } else {
       setToken(false);
       console.log(token);
     }
   }, []);
 
-  // // Function to update the data
-  // const updateData = (newData) => {
-  //   setHeaderTop(newData);
-  //   // setGetBookmarks
-  // };
   const apiKEY = "CG-9JnDkY6yxZsiy7xoXzsyqfLw";
   const usd = "usd";
   const pageNo = 1;
@@ -96,29 +90,19 @@ function App() {
 
         {
           path: "market",
-          element: (
-            <Market
-              // updateData={updateData}
-              getBookmarkHandler={getBookmarkHandler}
-              token={token}
-              setClicked={setClicked}
-              clicked={clicked}
-            />
-          ),
+          element: <Market />,
         },
         {
           path: "portfolio",
           element: (
             <Portfolio
               bookmarks={bookmarks}
-              token={token}
+              // token={token}
               toasts={toasts}
-              // toasty={toasty}
-              // setStatus={setStatus}
               justLoggedIn={justLoggedIn}
               setJustLoggedIn={setJustLoggedIn}
-              setClicked={setClicked}
-              clicked={clicked}
+              // setClicked={setClicked}
+              // clicked={clicked}
             />
           ),
         },
@@ -143,27 +127,26 @@ function App() {
           path: "coin/:id",
           element: <CoinData clicked={clicked} />,
         },
-
-        // { path: "coinDetails", element: <CoinData clicked={clicked} /> },
       ],
     },
   ];
 
   const router = createBrowserRouter(routerConfig);
 
+  const sharedValue = {
+    setClicked,
+    clicked,
+    getBookmarkHandler,
+    token,
+    toasts,
+    justLoggedIn,
+    setJustLoggedIn,
+    bookmarks,
+  };
   return (
-    <>
-      {/* <Navbar /> */}
-      {/* <Header /> */}
-      {/* <TopCoins headerTop={headerTop} /> */}
-      {/* <Market  /> */}
-      {/* <Faq /> */}
-
-      {/* <Portfolio bookmarks={bookmarks} /> */}
-      {/* <DataProvider> */}
+    <DataContext.Provider value={sharedValue}>
       <RouterProvider router={router} />
-      {/* </DataProvider> */}
-    </>
+    </DataContext.Provider>
   );
 }
 

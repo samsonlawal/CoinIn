@@ -479,19 +479,22 @@ function CoinData({ clicked }) {
                 </div>
 
                 {/* Converter */}
-                <div className="converter">
-                  <div className="inputt">
-                    <label htmlFor="">USD</label>
-                    <input type="text" onChange={handleChange} />
-                  </div>
-                  <div className="inputt">
-                    <p className="sym">{theData.symbol.toUpperCase()}</p>
+                <div className="converterContainer">
+                  <h3 className="converterHeader">{theData.name} Converter</h3>
+                  <div className="converter">
+                    <div className="inputt">
+                      <label htmlFor="">USD</label>
+                      <input type="text" onChange={handleChange} />
+                    </div>
+                    <div className="inputt">
+                      <p className="sym">{theData.symbol.toUpperCase()}</p>
 
-                    <p>
-                      {(
-                        inputValue / theData.market_data.current_price.usd
-                      ).toLocaleString()}
-                    </p>
+                      <p>
+                        {(
+                          inputValue / theData.market_data.current_price.usd
+                        ).toLocaleString()}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -643,24 +646,29 @@ function CoinData({ clicked }) {
                   </div>
 
                   {/* Converter */}
-                  <div className="converter">
-                    <div className="inputt">
-                      <label htmlFor="">USD</label>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        pattern="\d*"
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="inputt">
-                      <p className="sym">{theData.symbol.toUpperCase()}</p>
+                  <div className="converterContainer">
+                    <h3 className="converterHeader">
+                      {theData.name} Converter
+                    </h3>
+                    <div className="converter">
+                      <div className="inputt">
+                        <label htmlFor="">USD</label>
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="\d*"
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="inputt">
+                        <p className="sym">{theData.symbol.toUpperCase()}</p>
 
-                      <p>
-                        {(
-                          inputValue / theData.market_data.current_price.usd
-                        ).toLocaleString()}
-                      </p>
+                        <p>
+                          {(
+                            inputValue / theData.market_data.current_price.usd
+                          ).toLocaleString()}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
