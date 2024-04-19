@@ -239,13 +239,7 @@ export default function Portfolio({
                       );
 
                       return (
-                        <tr
-                          key={item.symbol}
-                          id={item.id}
-                          onClick={() => {
-                            clickHandler(item.id);
-                          }}
-                        >
+                        <tr key={item.symbol} id={item.id}>
                           <td className="saveButton">
                             <i
                               className={`fa-star ${
@@ -262,7 +256,11 @@ export default function Portfolio({
                           </td>
                           <td className="name">
                             <img src={item.image.small} alt="" />
-                            <p>
+                            <p
+                              onClick={() => {
+                                clickHandler(item.id);
+                              }}
+                            >
                               {item.name}{" "}
                               <span>{item.symbol.toUpperCase()}</span>
                             </p>

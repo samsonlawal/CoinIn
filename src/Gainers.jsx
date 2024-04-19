@@ -335,13 +335,7 @@ function Gainers({ updateCheckerState, dataChecker }) {
       );
 
       return (
-        <tr
-          key={item.symbol}
-          id={item.id}
-          onClick={() => {
-            clickHandler(item.id);
-          }}
-        >
+        <tr key={item.symbol} id={item.id}>
           <td className="saveButton">
             <i
               className={`fa-star ${
@@ -359,7 +353,11 @@ function Gainers({ updateCheckerState, dataChecker }) {
           </td>
           <td className="name">
             <img src={item.image} alt="" />
-            <p>
+            <p
+              onClick={() => {
+                clickHandler(item.id);
+              }}
+            >
               {item.name} <span>{item.symbol.toUpperCase()}</span>
             </p>
           </td>
