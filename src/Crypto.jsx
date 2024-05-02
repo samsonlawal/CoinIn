@@ -430,13 +430,14 @@ function Crypto({ updateCheckerState, dataChecker }) {
           <td className="orders">
             <p>{item.market_cap_rank}</p>
           </td>
-          <td className="name">
+          <td
+            className="name"
+            onClick={() => {
+              clickHandler(item.id);
+            }}
+          >
             <img src={item.image} alt="" />
-            <p
-              onClick={() => {
-                clickHandler(item.id);
-              }}
-            >
+            <p>
               {item.name} <span>{item.symbol.toUpperCase()}</span>
             </p>
           </td>

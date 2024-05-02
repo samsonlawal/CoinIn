@@ -29,7 +29,7 @@ function CoinData({ clicked }) {
   const [chartRange, setChartRange] = useState(one);
 
   useEffect(() => {
-    fetch(`https://api.coingecko.com/api/v3/coins/${clicked}`)
+    fetch(`https://api.coingecko.com/api/v3/coins/${clicked || id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

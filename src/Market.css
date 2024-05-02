@@ -133,8 +133,18 @@ td p {
   font-size: 15px;
 }
 
+tbody tr .name:hover {
+  /* background-color: #222129; */
+  cursor: pointer;
+}
+
 tbody tr:hover {
   background-color: #222129;
+  /* cursor: pointer; */
+}
+
+tbody tr i:hover {
+  /* background-color: #222129; */
   cursor: pointer;
 }
 
