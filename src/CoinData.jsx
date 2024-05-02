@@ -13,7 +13,11 @@ import "react-tooltip/dist/react-tooltip.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import { useParams } from "react-router-dom";
+
 function CoinData({ clicked }) {
+  const { id } = useParams();
+
   const [theData, setTheData] = useState();
   const [chartData, setChartData] = useState([]);
 

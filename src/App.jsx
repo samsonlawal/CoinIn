@@ -97,12 +97,9 @@ function App() {
           element: (
             <Portfolio
               bookmarks={bookmarks}
-              // token={token}
               toasts={toasts}
               justLoggedIn={justLoggedIn}
               setJustLoggedIn={setJustLoggedIn}
-              // setClicked={setClicked}
-              // clicked={clicked}
             />
           ),
         },
