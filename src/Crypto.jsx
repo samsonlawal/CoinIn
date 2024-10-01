@@ -77,7 +77,7 @@ function Crypto({ updateCheckerState, dataChecker }) {
       if (error) {
         setFetchError("Couldn't fetch");
         setBookmarks(null);
-        console.log(error);
+        // console.log(error);
       }
 
       if (data) {
@@ -475,7 +475,7 @@ function Crypto({ updateCheckerState, dataChecker }) {
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <div className="market-div">
         <div className="table-div">
-          <div className="table-shelf">
+          <div className="table-shelf flex flex-col">
             <table>
               <thead>
                 <tr>
@@ -533,7 +533,7 @@ function Crypto({ updateCheckerState, dataChecker }) {
               </div>
             )}
           </div> */}
-            {fetchError && <p>{fetchError}</p>}
+            {/* {fetchError && <p>{fetchError}</p>} */}
           </div>
 
           <div></div>
