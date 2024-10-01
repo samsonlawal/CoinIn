@@ -68,7 +68,7 @@ export default function Portfolio({
       if (error) {
         setFetchError("Couldn't fetch");
         setBookmarks(null);
-        console.log(error);
+        // console.log(error);
       }
 
       if (data) {
@@ -138,15 +138,15 @@ export default function Portfolio({
       toast.success("Bookmark removed successfully");
 
       if (data) {
-        console.log("Bookmark removed successfully:", data);
+        // console.log("Bookmark removed successfully:", data);
         // console.log(market);
       }
 
       if (error) {
-        console.log("Error removing bookmark:", error);
+        // console.log("Error removing bookmark:", error);
       }
     } catch (error) {
-      console.log("Error removing bookmark:", error);
+      // console.log("Error removing bookmark:", error);
     }
   };
 
@@ -168,7 +168,7 @@ export default function Portfolio({
   }, [bookmarkList]);
 
   function clickHandler(id) {
-    console.log(id);
+    // console.log(id);
     setClicked(id);
     window.scrollTo(0, 0); // Scrolls to the top left corner of the page
     // setCoinData(id);
